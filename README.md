@@ -4,6 +4,10 @@
 
 Täysin paikallinen. Ei pilveä. Ei kuukausimaksua.
 
+## Esittely
+
+[Katso tuote-esittely → esite.html](esite.html)
+
 ## Lataa
 
 Uusin versio löytyy [Releases](../../releases/latest)-sivulta.

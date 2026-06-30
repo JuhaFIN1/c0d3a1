@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C0D3A1 — Your Private AI That Grows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07070f;
+    --bg2: #0d0d1a;
+    --bg3: #11111f;
+    --cyan: #00d4ff;
+    --purple: #7c3aed;
+    --green: #00ff88;
+    --pink: #ff2d78;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(255,255,255,0.07);
+    --glow-cyan: 0 0 40px rgba(0,212,255,0.3);
+    --glow-purple: 0 0 40px rgba(124,58,237,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── CANVAS BACKGROUND ── */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: rgba(7,7,15,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+
+  .lang-btn {
+    display: flex;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .lang-btn button {
+    padding: 0.4rem 1rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lang-btn button.active {
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    color: white;
+  }
+
+  .nav-cta {
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    border: none;
+    border-radius: 999px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--glow-cyan);
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .hero-inner { max-width: 900px; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--cyan);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero-badge .dot { display: inline-block; width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 .grad {
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+    color: var(--muted);
+    max-width: 650px;
+    margin: 0 auto 2.5rem;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .btn-primary {
+    padding: 0.9rem 2.5rem;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    border: none;
+    border-radius: 999px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.4); }
+
+  .btn-secondary {
+    padding: 0.9rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover { border-color: var(--cyan); background: rgba(0,212,255,0.05); }
+
+  /* STATS ROW */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stat-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem; }
+
+  /* ── LOGOS / TRUST ── */
+  .trust {
+    padding: 2rem 2rem 5rem;
+    text-align: center;
+  }
+
+  .trust p { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.5rem; }
+
+  .trust-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    opacity: 0.35;
+  }
+
+  .trust-logos span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--purple);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .section-header p { color: var(--muted); font-size: 1.1rem; max-width: 550px; margin: 0 auto; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feat-card:hover {
+    border-color: rgba(0,212,255,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), var(--glow-cyan);
+  }
+
+  .feat-card:hover::before { opacity: 1; }
+
+  .feat-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .feat-icon.cyan { background: rgba(0,212,255,0.12); }
+  .feat-icon.purple { background: rgba(124,58,237,0.12); }
+  .feat-icon.green { background: rgba(0,255,136,0.12); }
+  .feat-icon.pink { background: rgba(255,45,120,0.12); }
+
+  .feat-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .feat-card p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 6rem 2rem;
+    background: var(--bg2);
+  }
+
+  .how-inner { max-width: 1100px; margin: 0 auto; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    position: relative;
+  }
+
+  .step {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 auto 1.5rem;
+    box-shadow: var(--glow-cyan);
+  }
+
+  .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .step p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── ARCHITECTURE ── */
+  .arch {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .arch-diagram {
+    margin-top: 3rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .arch-node {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    min-width: 180px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .arch-node:hover { border-color: var(--cyan); box-shadow: var(--glow-cyan); }
+
+  .arch-node.central {
+    background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,212,255,0.1));
+    border-color: rgba(124,58,237,0.4);
+    min-width: 220px;
+  }
+
+  .arch-node .node-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .arch-node h4 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cyan); margin-bottom: 0.3rem; }
+  .arch-node p { font-size: 0.8rem; color: var(--muted); }
+
+  .arch-arrow {
+    font-size: 1.5rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .arch-arrow span { font-size: 0.65rem; color: var(--muted); text-align: center; max-width: 90px; line-height: 1.3; }
+
+  /* ── MEMORY SECTION ── */
+  .memory {
+    padding: 6rem 2rem;
+    background: var(--bg2);
+  }
+
+  .memory-inner { max-width: 1100px; margin: 0 auto; }
+
+  .memory-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .memory-tiers { grid-template-columns: 1fr; }
+    .arch-diagram { flex-direction: column; }
+    .arch-arrow { transform: rotate(90deg); }
+  }
+
+  .tier {
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tier-1 { background: linear-gradient(135deg, rgba(0,212,255,0.08), transparent); border-color: rgba(0,212,255,0.2); }
+  .tier-2 { background: linear-gradient(135deg, rgba(124,58,237,0.08), transparent); border-color: rgba(124,58,237,0.2); }
+  .tier-3 { background: linear-gradient(135deg, rgba(0,255,136,0.08), transparent); border-color: rgba(0,255,136,0.2); }
+
+  .tier-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.8rem;
+  }
+
+  .tier-1 .tier-label { color: var(--cyan); }
+  .tier-2 .tier-label { color: var(--purple); }
+  .tier-3 .tier-label { color: var(--green); }
+
+  .tier h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .tier p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+  .tier-tech {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+  }
+
+  /* ── TURBOQUANT CALLOUT ── */
+  .tq-callout {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .tq-box {
+    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08));
+    border: 1px solid rgba(0,212,255,0.25);
+    border-radius: 24px;
+    padding: 3.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tq-box::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(0,212,255,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .tq-num {
+    font-size: 5rem;
+    font-weight: 900;
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .tq-box h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+  .tq-box p { color: var(--muted); font-size: 1rem; max-width: 600px; margin: 0 auto; line-height: 1.7; }
+
+  .tq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 600px) { .tq-grid { grid-template-columns: 1fr; } }
+
+  .tq-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 1.2rem;
+  }
+
+  .tq-item .vram { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--cyan); }
+  .tq-item .model { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+  /* ── PRIVACY ── */
+  .privacy {
+    padding: 6rem 2rem;
+    background: var(--bg2);
+  }
+
+  .privacy-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) { .privacy-inner { grid-template-columns: 1fr; } }
+
+  .privacy-visual {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .privacy-visual .ok { color: var(--green); }
+  .privacy-visual .no { color: var(--pink); }
+  .privacy-visual .comment { color: #3d4f6e; }
+
+  .privacy-text h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .privacy-text p { color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
+
+  .privacy-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .privacy-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .privacy-list li::before {
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    background: rgba(0,255,136,0.15);
+    color: var(--green);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── ROADMAP ── */
+  .roadmap {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .roadmap-items { margin-top: 3rem; display: flex; flex-direction: column; gap: 1px; }
+
+  .roadmap-item {
+    display: flex;
+    gap: 2rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .roadmap-item:last-child { border-bottom: none; }
+
+  .phase-badge {
+    flex-shrink: 0;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .phase-1 { background: rgba(0,212,255,0.15); color: var(--cyan); }
+  .phase-2 { background: rgba(124,58,237,0.15); color: #a78bfa; }
+  .phase-3 { background: rgba(0,255,136,0.15); color: var(--green); }
+  .phase-4 { background: rgba(255,45,120,0.15); color: var(--pink); }
+  .phase-5 { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(124,58,237,0.15)); color: var(--cyan); }
+
+  .roadmap-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .roadmap-content p { font-size: 0.9rem; color: var(--muted); }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-section p { font-size: 1.1rem; color: var(--muted); max-width: 500px; margin: 0 auto 2.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  footer strong {
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ── COMPETITOR TABLE ── */
+  .compare {
+    padding: 6rem 2rem;
+    background: var(--bg2);
+  }
+  .compare-inner { max-width: 1100px; margin: 0 auto; }
+
+  .compare-wrap {
+    margin-top: 3rem;
+    overflow-x: auto;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    min-width: 700px;
+  }
+
+  .compare-table thead th {
+    padding: 1.1rem 1.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+    white-space: nowrap;
+  }
+
+  .compare-table thead th:first-child { text-align: left; }
+
+  .compare-table thead th.highlight {
+    background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(124,58,237,0.12));
+    color: var(--cyan);
+  }
+
+  .compare-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .compare-table tbody tr:last-child { border-bottom: none; }
+  .compare-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  .compare-table td {
+    padding: 0.9rem 1.2rem;
+    text-align: center;
+    color: var(--muted);
+    vertical-align: middle;
+  }
+
+  .compare-table td:first-child {
+    text-align: left;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .compare-table td.highlight {
+    background: rgba(0,212,255,0.04);
+  }
+
+  .ct-yes  { color: #00ff88; font-weight: 700; }
+  .ct-no   { color: #475569; }
+  .ct-part { color: #f59e0b; font-size: 0.8rem; }
+  .ct-free { color: var(--cyan); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .ct-paid { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+
+  .compare-note {
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .compare-note span { display: flex; align-items: center; gap: 0.4rem; }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">C0D3A1</div>
+  <div class="nav-right">
+    <div class="lang-btn">
+      <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="mailto:asiakaspalvelu@selaa.fi?subject=COD3A1%20-%20Jono" class="nav-cta" data-fi="Liity jonoon" data-en="Join Waitlist">Liity jonoon</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span data-fi="Nyt saatavilla — Early Access" data-en="Now Available — Early Access">Nyt saatavilla — Early Access</span>
+    </div>
+
+    <h1>
+      <span data-fi="Sinun oma AI.<br>Yksityinen." data-en="Your own AI.<br>Private.">Sinun oma AI.<br>Yksityinen.</span><br>
+      <span class="grad" data-fi="Itseoppiva." data-en="Self-learning.">Itseoppiva.</span>
+    </h1>
+
+    <p data-fi="C0D3A1 pyörii omalla koneellasi — täysin offline. Se oppii kaikesta mitä teet, muistaa jokaisen projektin, ja kasvaa ajan myötä koko yhteisön viisaudella. Ilman yhtäkään datapisteen lähtemistä koneeltasi."
+       data-en="C0D3A1 runs on your own machine — fully offline. It learns from everything you do, remembers every project, and grows over time with the wisdom of the whole community. Without a single data point ever leaving your device.">
+      C0D3A1 pyörii omalla koneellasi — täysin offline. Se oppii kaikesta mitä teet, muistaa jokaisen projektin, ja kasvaa ajan myötä koko yhteisön viisaudella. Ilman yhtäkään datapisteen lähtemistä koneeltasi.
+    </p>
+
+    <div class="hero-cta">
+      <a href="mailto:asiakaspalvelu@selaa.fi?subject=COD3A1%20-%20Jono" class="btn-primary" data-fi="Liity jonoon" data-en="Join Waitlist">Liity jonoon</a>
+      <a href="#how" class="btn-secondary" data-fi="Miten se toimii?" data-en="How does it work?">Miten se toimii?</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label" data-fi="Yksityinen" data-en="Private">Yksityinen</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6×</div>
+        <div class="stat-label" data-fi="Pienempi muistinkulutus" data-en="Less memory usage">Pienempi muistinkulutus</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">285</div>
+        <div class="stat-label" data-fi="Opittua taitoa" data-en="Learned skills">Opittua taitoa</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-label" data-fi="Kieltä tuettu" data-en="Languages supported">Kieltä tuettu</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust">
+  <p data-fi="Teknologiapohja" data-en="Built on">Teknologiapohja</p>
+  <div class="trust-logos">
+    <span>QWEN 2.5</span>
+    <span>vLLM</span>
+    <span>TURBOQUANT</span>
+    <span>QDRANT</span>
+    <span>FASTAPI</span>
+    <span>DOCKER</span>
+    <span>NEXT.JS</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features reveal" id="features">
+  <div class="section-header">
+    <div class="section-tag" data-fi="Ominaisuudet" data-en="Features">Ominaisuudet</div>
+    <h2 data-fi="Enemmän kuin chatbot" data-en="More than a chatbot">Enemmän kuin chatbot</h2>
+    <p data-fi="C0D3A1 on kokonainen AI-ekosysteemi — muistilla, agenteilla ja oikeilla työkaluilla varustettuna."
+       data-en="C0D3A1 is a complete AI ecosystem — equipped with memory, agents, and real tools.">
+      C0D3A1 on kokonainen AI-ekosysteemi — muistilla, agenteilla ja oikeilla työkaluilla varustettuna.
+    </p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon cyan">🔒</div>
+      <h3 data-fi="Privacy-first" data-en="Privacy-first">Privacy-first</h3>
+      <p data-fi="Kaikki data pysyy omalla koneellasi. Voit käyttää C0D3A1:ä täysin ilman internet-yhteyttä. Sinä päätät mitä synkronoidaan."
+         data-en="All data stays on your own machine. You can use C0D3A1 completely offline. You decide what gets synced.">
+        Kaikki data pysyy omalla koneellasi. Voit käyttää C0D3A1:ä täysin ilman internet-yhteyttä. Sinä päätät mitä synkronoidaan.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon purple">🧠</div>
+      <h3 data-fi="Pysyvä muisti" data-en="Persistent memory">Pysyvä muisti</h3>
+      <p data-fi="AI muistaa kaikki projektisi, päätöksesi ja tyylisi. Semanttinen hakuvektorimuisti löytää relevantin tiedon vuosienkin takaa."
+         data-en="The AI remembers all your projects, decisions, and style. Semantic vector memory finds relevant information even from years back.">
+        AI muistaa kaikki projektisi, päätöksesi ja tyylisi. Semanttinen hakuvektorimuisti löytää relevantin tiedon vuosienkin takaa.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon green">🤖</div>
+      <h3 data-fi="Multi-agent järjestelmä" data-en="Multi-agent system">Multi-agent järjestelmä</h3>
+      <p data-fi="Seitsemän erikoisagenttia (Planner, Coder, Debug, Tool, Memory, Critic, Security) yhteistyössä — AI ei vain puhu, se toimii."
+         data-en="Seven specialized agents (Planner, Coder, Debug, Tool, Memory, Critic, Security) working together — the AI doesn't just talk, it acts.">
+        Seitsemän erikoisagenttia (Planner, Coder, Debug, Tool, Memory, Critic, Security) yhteistyössä — AI ei vain puhu, se toimii.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon pink">⚡</div>
+      <h3 data-fi="Oikeat työkalut" data-en="Real tools">Oikeat työkalut</h3>
+      <p data-fi="AI voi lukea ja muokata tiedostoja, ajaa testejä, käyttää Gitiä ja deployata palvelimia — sandboxatussa ympäristössä turvallisesti."
+         data-en="The AI can read and edit files, run tests, use Git and deploy servers — safely in a sandboxed environment.">
+        AI voi lukea ja muokata tiedostoja, ajaa testejä, käyttää Gitiä ja deployata palvelimia — sandboxatussa ympäristössä turvallisesti.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon cyan">🌐</div>
+      <h3 data-fi="Yhteisöoppiminen" data-en="Community learning">Yhteisöoppiminen</h3>
+      <p data-fi="Suostumuksellasi: jokainen ratkaisu anonymisoidaan AST-tasolla ja validoidaan ennen yhteiseen muistiin tallentamista. Kaikki hyötyvät ilman yksityisyysriskiä. Ilman suostumusta mitään ei lähde."
+         data-en="With your consent: every solution is anonymized at AST level and validated before being stored in shared memory. Everyone benefits without privacy risk. Without consent, nothing is sent.">
+        Suostumuksellasi: jokainen ratkaisu anonymisoidaan AST-tasolla ja validoidaan ennen yhteiseen muistiin tallentamista. Kaikki hyötyvät ilman yksityisyysriskiä. Ilman suostumusta mitään ei lähde.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon purple">📈</div>
+      <h3 data-fi="Itseään kehittävä" data-en="Self-improving">Itseään kehittävä</h3>
+      <p data-fi="Järjestelmä oppii onnistumisista — ei vain datasta. Parhaat ratkaisut nousevat automaattisesti kaikkien käyttöön Knowledge Pack -päivityksinä."
+         data-en="The system learns from successes — not just data. The best solutions automatically rise to the top and reach everyone as Knowledge Pack updates.">
+        Järjestelmä oppii onnistumisista — ei vain datasta. Parhaat ratkaisut nousevat automaattisesti kaikkien käyttöön Knowledge Pack -päivityksinä.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon cyan">📡</div>
+      <h3 data-fi="Etäkäyttö — mistä tahansa" data-en="Remote access — from anywhere">Etäkäyttö — mistä tahansa</h3>
+      <p data-fi="Tailscale-integraatio mahdollistaa pääsyn LOCAL NODEen puhelimelta tai toiselta koneelta — suoraan, ilman porttien avausta tai pilvipalveluja. Salattu peer-to-peer-yhteys."
+         data-en="Tailscale integration allows access to LOCAL NODE from your phone or another machine — directly, without port forwarding or cloud services. Encrypted peer-to-peer connection.">
+        Tailscale-integraatio mahdollistaa pääsyn LOCAL NODEen puhelimelta tai toiselta koneelta — suoraan, ilman porttien avausta tai pilvipalveluja. Salattu peer-to-peer-yhteys.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon green">🖥️</div>
+      <h3 data-fi="Laitemonitorointi" data-en="Hardware monitoring">Laitemonitorointi</h3>
+      <p data-fi="Reaaliaikainen footeri näyttää CPU:n nimen ja säikeet, RAM:n tyypin (DDR5/DDR4) ja nopeuden, GPU:n ja VRAM:n käytön — kaikki yhdellä silmäyksellä. Tukee useita GPUita."
+         data-en="Real-time footer shows CPU name and threads, RAM type (DDR5/DDR4) and speed, GPU and VRAM usage — all at a glance. Supports multiple GPUs.">
+        Reaaliaikainen footeri näyttää CPU:n nimen ja säikeet, RAM:n tyypin (DDR5/DDR4) ja nopeuden, GPU:n ja VRAM:n käytön — kaikki yhdellä silmäyksellä. Tukee useita GPUita.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon purple">🎓</div>
+      <h3 data-fi="Autonominen opetustila" data-en="Autonomous learning mode">Autonominen opetustila</h3>
+      <p data-fi="AI hakee itsenäisesti koodausdataa Stack Overflowsta, GitHubista, Real Pythonista ja HA Communitysta — salasanasuojattu, ajastettava, live-logi asetuksissa. Korjaukset muuttuvat automaattisesti uusiksi hakuaiheiksi."
+         data-en="AI independently searches for coding data from Stack Overflow, GitHub, Real Python and HA Community — password-protected, schedulable, live log in settings. Your corrections automatically become new search topics.">
+        AI hakee itsenäisesti koodausdataa Stack Overflowsta, GitHubista, Real Pythonista ja HA Communitysta — salasanasuojattu, ajastettava, live-logi asetuksissa. Korjaukset muuttuvat automaattisesti uusiksi hakuaiheiksi.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon cyan">🔍</div>
+      <h3 data-fi="Parannettu web-haku" data-en="Enhanced web search">Parannettu web-haku</h3>
+      <p data-fi="AI hakee ensin, vastaa sitten — ei arvata faktoja. DuckDuckGo Search API korvaa epäluotettavan HTML-scrapingin. Tukee myös oman SearXNG-instanssin konfigurointia täydelliseen yksityisyyteen."
+         data-en="AI searches first, then answers — no guessing facts. DuckDuckGo Search API replaces unreliable HTML scraping. Supports configuring your own SearXNG instance for full privacy.">
+        AI hakee ensin, vastaa sitten — ei arvata faktoja. DuckDuckGo Search API korvaa epäluotettavan HTML-scrapingin. Tukee myös oman SearXNG-instanssin konfigurointia täydelliseen yksityisyyteen.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how reveal" id="how">
+  <div class="how-inner">
+    <div class="section-header">
+      <div class="section-tag" data-fi="Toimintaperiaate" data-en="How it works">Toimintaperiaate</div>
+      <h2 data-fi="Kolme yksinkertaista vaihetta" data-en="Three simple steps">Kolme yksinkertaista vaihetta</h2>
+      <p data-fi="Sinä teet töitä. C0D3A1 oppii, muistaa ja kasvaa."
+         data-en="You work. C0D3A1 learns, remembers and grows.">
+        Sinä teet töitä. C0D3A1 oppii, muistaa ja kasvaa.
+      </p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3 data-fi="Pyörii koneellasi" data-en="Runs on your machine">Pyörii koneellasi</h3>
+        <p data-fi="LOCAL NODE käynnistyy omalla koneellasi. Toimii täysin offline. LLM pyörii paikallisesti — mikään ei lähde verkkoon ilman lupaasi."
+           data-en="LOCAL NODE starts on your own machine. Works completely offline. The LLM runs locally — nothing leaves the network without your permission.">
+          LOCAL NODE käynnistyy omalla koneellasi. Toimii täysin offline. LLM pyörii paikallisesti — mikään ei lähde verkkoon ilman lupaasi.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3 data-fi="Oppii jokaisesta onnistumisesta" data-en="Learns from every success">Oppii jokaisesta onnistumisesta</h3>
+        <p data-fi="Kun ratkaiset ongelman, Critic-agentti arvioi tuloksen. Onnistuneet ratkaisut anonymisoidaan AST-tasolla ja lähetetään Central Coren oppimispipelineen."
+           data-en="When you solve a problem, the Critic agent evaluates the result. If you have given consent, successful solutions are anonymized at the AST level and sent to the Central Core learning pipeline.">
+          Kun ratkaiset ongelman, Critic-agentti arvioi tuloksen. Jos olet antanut suostumuksen, onnistuneet ratkaisut anonymisoidaan AST-tasolla ja lähetetään Central Coren oppimispipelineen.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3 data-fi="Kaikki saavat paremman AI:n" data-en="Everyone gets a smarter AI">Kaikki saavat paremman AI:n</h3>
+        <p data-fi="Central Core pakkaa parhaat ratkaisut Knowledge Packeiksi. Kaikki LOCAL NODEt päivittyvät — sinun AI:si kasvaa koko yhteisön onnistumisilla."
+           data-en="Central Core packages the best solutions into Knowledge Packs. All LOCAL NODEs update — your AI grows with the whole community's successes.">
+          Central Core pakkaa parhaat ratkaisut Knowledge Packeiksi. Kaikki LOCAL NODEt päivittyvät — sinun AI:si kasvaa koko yhteisön onnistumisilla.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="arch reveal">
+  <div class="section-header">
+    <div class="section-tag" data-fi="Arkkitehtuuri" data-en="Architecture">Arkkitehtuuri</div>
+    <h2 data-fi="Kaksi tasoa — yksi kokemus" data-en="Two layers — one experience">Kaksi tasoa — yksi kokemus</h2>
+  </div>
+  <div class="arch-diagram">
+    <div class="arch-node">
+      <div class="node-icon">💻</div>
+      <h4 data-fi="Sinun koneesi" data-en="Your machine">Sinun koneesi</h4>
+      <p data-fi="Chat · Muisti · Agentit · Tiedostot" data-en="Chat · Memory · Agents · Files">Chat · Muisti · Agentit · Tiedostot</p>
+    </div>
+    <div class="arch-arrow">
+      →
+      <span data-fi="anonymisoitu oppimisdata" data-en="anonymized learning data">anonymisoitu oppimisdata</span>
+    </div>
+    <div class="arch-node central">
+      <div class="node-icon">🌐</div>
+      <h4 data-fi="Central Core" data-en="Central Core">Central Core</h4>
+      <p data-fi="Rankkausta · Skill extraction · Knowledge Packs" data-en="Ranking · Skill extraction · Knowledge Packs">Rankkausta · Skill extraction · Knowledge Packs</p>
+    </div>
+    <div class="arch-arrow">
+      →
+      <span data-fi="knowledge pack päivitys" data-en="knowledge pack update">knowledge pack päivitys</span>
+    </div>
+    <div class="arch-node">
+      <div class="node-icon">🤝</div>
+      <h4 data-fi="Kaikki käyttäjät" data-en="All users">Kaikki käyttäjät</h4>
+      <p data-fi="Saavat paremman AI:n opt-in" data-en="Get a smarter AI opt-in">Saavat paremman AI:n opt-in</p>
+    </div>
+  </div>
+</section>
+
+<!-- TURBOQUANT CALLOUT -->
+<section class="tq-callout reveal">
+  <div class="tq-box">
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.5rem;">
+      <div class="tq-num">6×</div>
+      <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;font-weight:700;padding:0.3rem 0.8rem;border:1px solid rgba(0,212,255,0.4);border-radius:999px;color:#00d4ff;background:rgba(0,212,255,0.08);">v0.1.34+</span>
+    </div>
+    <h3 data-fi="Pienempi muistinkulutus — ei tarkkuushäviötä" data-en="Less memory usage — zero accuracy loss">Pienempi muistinkulutus — ei tarkkuushäviötä</h3>
+    <p data-fi="C0D3A1 käyttää Googlen TurboQuant-teknologiaa (ICLR 2026) KV-välimuistin pakkaamiseen. 16 bitistä 3 bittiin — mikään ei muutu tuloksissa, mutta muistinkulutus putoaa kuudennekseen. Nyt myös 6–8 GB GPU riittää."
+       data-en="C0D3A1 uses Google's TurboQuant technology (ICLR 2026) for KV cache compression. From 16 bits to 3 bits — nothing changes in the output, but memory usage drops to one sixth. Now even a 6–8 GB GPU is enough.">
+      C0D3A1 käyttää Googlen TurboQuant-teknologiaa (ICLR 2026) KV-välimuistin pakkaamiseen. 16 bitistä 3 bittiin — mikään ei muutu tuloksissa, mutta muistinkulutus putoaa kuudennekseen. Nyt myös 6–8 GB GPU riittää.
+    </p>
+    <div class="tq-grid">
+      <div class="tq-item">
+        <div class="vram">6–8 GB</div>
+        <div class="model" data-fi="Qwen2.5-Coder 7B pitkällä kontekstilla" data-en="Qwen2.5-Coder 7B with long context">Qwen2.5-Coder 7B pitkällä kontekstilla</div>
+      </div>
+      <div class="tq-item">
+        <div class="vram">10–12 GB</div>
+        <div class="model" data-fi="Qwen2.5-Coder 14B — normaalisti vaatii 16 GB" data-en="Qwen2.5-Coder 14B — normally needs 16 GB">Qwen2.5-Coder 14B — normaalisti vaatii 16 GB</div>
+      </div>
+      <div class="tq-item">
+        <div class="vram">24 GB</div>
+        <div class="model" data-fi="70B malli + 32k konteksti — Claude-luokan suorituskyky" data-en="70B model + 32k context — Claude-class performance">70B malli + 32k konteksti — Claude-luokan suorituskyky</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMORY -->
+<section class="memory reveal">
+  <div class="memory-inner">
+    <div class="section-header">
+      <div class="section-tag" data-fi="Muistijärjestelmä" data-en="Memory system">Muistijärjestelmä</div>
+      <h2 data-fi="AI joka oikeasti muistaa" data-en="AI that actually remembers">AI joka oikeasti muistaa</h2>
+      <p data-fi="Kolmen tason muistijärjestelmä pitää kaiken relevantissa kontekstissa — hetkestä vuosiin."
+         data-en="A three-tier memory system keeps everything in relevant context — from moments to years.">
+        Kolmen tason muistijärjestelmä pitää kaiken relevantissa kontekstissa — hetkestä vuosiin.
+      </p>
+    </div>
+    <div class="memory-tiers">
+      <div class="tier tier-1">
+        <div class="tier-label" data-fi="Taso 1 — Lyhytmuisti" data-en="Tier 1 — Short-term">Taso 1 — Lyhytmuisti</div>
+        <h3 data-fi="Aktiivinen konteksti" data-en="Active context">Aktiivinen konteksti</h3>
+        <p data-fi="Nykyinen keskustelu, avoimet tiedostot, käynnissä olevat tehtävät — aina mielessä."
+           data-en="Current conversation, open files, running tasks — always in mind.">
+          Nykyinen keskustelu, avoimet tiedostot, käynnissä olevat tehtävät — aina mielessä.
+        </p>
+        <span class="tier-tech">In-memory</span>
+      </div>
+      <div class="tier tier-2">
+        <div class="tier-label" data-fi="Taso 2 — Pitkäaikaismuisti" data-en="Tier 2 — Long-term">Taso 2 — Pitkäaikaismuisti</div>
+        <h3 data-fi="Henkilökohtainen historia" data-en="Personal history">Henkilökohtainen historia</h3>
+        <p data-fi="Projektit, päätökset, työskentelytyyli, aiemmat virheet — semanttinen vektorihaku löytää kaiken."
+           data-en="Projects, decisions, working style, past mistakes — semantic vector search finds everything.">
+          Projektit, päätökset, työskentelytyyli, aiemmat virheet — semanttinen vektorihaku löytää kaiken.
+        </p>
+        <span class="tier-tech">Qdrant + SQLite</span>
+      </div>
+      <div class="tier tier-3">
+        <div class="tier-label" data-fi="Taso 3 — Yhteisömuisti" data-en="Tier 3 — Community memory">Taso 3 — Yhteisömuisti</div>
+        <h3 data-fi="Globaali oppiminen" data-en="Global learning">Globaali oppiminen</h3>
+        <p data-fi="Anonymisoitu problem→solution -muisti koko yhteisöltä. Parhaat ratkaisut — sinun käytössäsi."
+           data-en="Anonymized problem→solution memory from the whole community. The best solutions — available to you.">
+          Anonymisoitu problem→solution -muisti koko yhteisöltä. Parhaat ratkaisut — sinun käytössäsi.
+        </p>
+        <span class="tier-tech">Qdrant Cloud</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="privacy reveal">
+  <div class="privacy-inner">
+    <div class="privacy-visual">
+      <div style="color:#3d4f6e; margin-bottom:0.5rem"># C0D3A1 privacy model</div>
+      <br>
+      <span class="ok">✓</span> local_data.stays_on_device = True<br>
+      <span class="ok">✓</span> anonymization = "AST-level"<br>
+      <span class="ok">✓</span> sync = user.controls()<br>
+      <span class="ok">✓</span> offline_mode = available<br>
+      <span class="ok">✓</span> remote_access = "tailscale p2p"<br>
+      <span class="ok">✓</span> backup_export = "local zip"<br>
+      <span class="ok">✓</span> audit_log = always_on<br>
+      <br>
+      <span class="no">✗</span> raw_data_to_cloud = False<br>
+      <span class="no">✗</span> personal_info_shared = False<br>
+      <span class="no">✗</span> third_party_tracking = False<br>
+      <br>
+      <span class="comment"># You own your data. Always.</span>
+    </div>
+    <div class="privacy-text">
+      <div class="section-tag" data-fi="Yksityisyys" data-en="Privacy">Yksityisyys</div>
+      <h2 data-fi="Sinun datasi ei koskaan poistu koneeltasi" data-en="Your data never leaves your machine">Sinun datasi ei koskaan poistu koneeltasi</h2>
+      <p data-fi="Yhteisöoppiminen tapahtuu ilman yksityisyyskompromisseja. Koodisi anonymisoidaan AST-tasolla ennen lähetystä — rakenne säilyy, mutta identiteetti ei."
+         data-en="Community learning happens without privacy compromises. Your code is anonymized at the AST level before sending — structure is preserved, identity is not.">
+        Yhteisöoppiminen tapahtuu ilman yksityisyyskompromisseja. Koodisi anonymisoidaan AST-tasolla ennen lähetystä — rakenne säilyy, mutta identiteetti ei.
+      </p>
+      <ul class="privacy-list">
+        <li data-fi="Raakadata ei koskaan poistu koneeltasi" data-en="Raw data never leaves your machine">Raakadata ei koskaan poistu koneeltasi</li>
+        <li data-fi="AST-anonymisointi poistaa kaikki tunnisteet" data-en="AST anonymization removes all identifiers">AST-anonymisointi poistaa kaikki tunnisteet</li>
+        <li data-fi="Sinä valitset mitä synkronoidaan" data-en="You choose what gets synced">Sinä valitset mitä synkronoidaan</li>
+        <li data-fi="Täysin offline-käyttö mahdollinen" data-en="Fully offline use available">Täysin offline-käyttö mahdollinen</li>
+        <li data-fi="Jokainen agenttitoiminto lokitettu ja toistettavissa" data-en="Every agent action logged and replayable">Jokainen agenttitoiminto lokitettu ja toistettavissa</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITOR ANALYSIS -->
+<section class="compare reveal" id="compare">
+  <div class="compare-inner">
+    <div class="section-header">
+      <div class="section-tag" data-fi="Vertailu" data-en="Comparison">Vertailu</div>
+      <h2 data-fi="C0D3A1 vs. muut — miksi ero on merkittävä" data-en="C0D3A1 vs. others — why the difference matters">C0D3A1 vs. muut — miksi ero on merkittävä</h2>
+      <p data-fi="Vain C0D3A1 yhdistää offline-käytön, desktop-apin, muistin joka kasvaa, ja yhteisöoppimisen — ilman kuukausimaksua."
+         data-en="Only C0D3A1 combines offline use, a desktop app, growing memory, and community learning — without a monthly subscription.">
+        Vain C0D3A1 yhdistää offline-käytön, desktop-apin, muistin joka kasvaa, ja yhteisöoppimisen — ilman kuukausimaksua.
+      </p>
+    </div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-fi="Ominaisuus" data-en="Feature">Ominaisuus</th>
+            <th class="highlight">C0D3A1</th>
+            <th>ChatGPT Plus</th>
+            <th>Claude Pro</th>
+            <th>GitHub Copilot</th>
+            <th>Cursor AI</th>
+            <th>Ollama / LM Studio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-fi="Hinta" data-en="Price">Hinta</td>
+            <td class="highlight"><span class="ct-free" data-fi="Ilmainen*" data-en="Free*">Ilmainen*</span></td>
+            <td><span class="ct-paid">$20/kk</span></td>
+            <td><span class="ct-paid">$20/kk</span></td>
+            <td><span class="ct-paid">$10–19/kk</span></td>
+            <td><span class="ct-paid">$20/kk</span></td>
+            <td><span class="ct-free" data-fi="Ilmainen" data-en="Free">Ilmainen</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Toimii 100% offline" data-en="Works 100% offline">Toimii 100% offline</td>
+            <td class="highlight"><span class="ct-yes">✓</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Data pysyy omalla koneella" data-en="Data stays on your device">Data pysyy omalla koneella</td>
+            <td class="highlight"><span class="ct-yes">✓</span></td>
+            <td><span class="ct-no">✗ OpenAI</span></td>
+            <td><span class="ct-no">✗ Anthropic</span></td>
+            <td><span class="ct-no">✗ Microsoft</span></td>
+            <td><span class="ct-no">✗ Cursor</span></td>
+            <td><span class="ct-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Desktop .exe asennus" data-en="Desktop .exe installer">Desktop .exe asennus</td>
+            <td class="highlight"><span class="ct-yes">✓ Tauri</span></td>
+            <td><span class="ct-no">✗ web</span></td>
+            <td><span class="ct-no">✗ web</span></td>
+            <td><span class="ct-part" data-fi="IDE-plugin" data-en="IDE plugin">IDE-plugin</span></td>
+            <td><span class="ct-part">IDE-only</span></td>
+            <td><span class="ct-part">CLI / UI</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Muisti kasvaa sinusta" data-en="Memory grows from you">Muisti kasvaa sinusta</td>
+            <td class="highlight"><span class="ct-yes">✓ automaattinen</span></td>
+            <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
+            <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Kooderi-erikoismalli" data-en="Specialist coding model">Kooderi-erikoismalli</td>
+            <td class="highlight"><span class="ct-yes">✓ qwen2.5-coder</span></td>
+            <td><span class="ct-part">GPT-4o</span></td>
+            <td><span class="ct-part">Sonnet 4</span></td>
+            <td><span class="ct-yes">✓</span></td>
+            <td><span class="ct-yes">✓</span></td>
+            <td><span class="ct-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Multi-agent arkkitehtuuri" data-en="Multi-agent architecture">Multi-agent arkkitehtuuri</td>
+            <td class="highlight"><span class="ct-yes">✓ 10+ agenttia</span></td>
+            <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
+            <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Oikeat työkalut (tiedostot, shell, git)" data-en="Real tools (files, shell, git)">Oikeat työkalut</td>
+            <td class="highlight"><span class="ct-yes">✓</span></td>
+            <td><span class="ct-part" data-fi="Osittain" data-en="Partial">Osittain</span></td>
+            <td><span class="ct-part" data-fi="Osittain" data-en="Partial">Osittain</span></td>
+            <td><span class="ct-part">IDE-rajoitettu</span></td>
+            <td><span class="ct-part">IDE-rajoitettu</span></td>
+            <td><span class="ct-no">✗</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Yhteisöoppiminen" data-en="Community learning">Yhteisöoppiminen</td>
+            <td class="highlight"><span class="ct-yes">✓ Central Core</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+          </tr>
+          <tr>
+            <td data-fi="7 kielen tuki (fi/en/sv/de/fr/es/zh)" data-en="7 language support (fi/en/sv/de/fr/es/zh)">7 kielen tuki</td>
+            <td class="highlight"><span class="ct-yes">✓</span></td>
+            <td><span class="ct-yes">✓</span></td>
+            <td><span class="ct-yes">✓</span></td>
+            <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
+            <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
+            <td><span class="ct-part" data-fi="Malli-riippuu" data-en="Model-dependent">Malli-riippuu</span></td>
+          </tr>
+          <tr>
+            <td data-fi="GDPR — ei pilvidata" data-en="GDPR — no cloud data">GDPR — ei pilvidata</td>
+            <td class="highlight"><span class="ct-yes">✓ täysin paikallinen</span></td>
+            <td><span class="ct-no">⚠ pilvi</span></td>
+            <td><span class="ct-no">⚠ pilvi</span></td>
+            <td><span class="ct-no">⚠ pilvi</span></td>
+            <td><span class="ct-no">⚠ pilvi</span></td>
+            <td><span class="ct-yes">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="compare-note">
+      <span><span class="ct-yes">✓</span> <span data-fi="= täysi tuki" data-en="= full support">= täysi tuki</span></span>
+      <span><span class="ct-part">~</span> <span data-fi="= osittainen tai rajoitettu" data-en="= partial or limited">= osittainen tai rajoitettu</span></span>
+      <span><span class="ct-no">✗</span> <span data-fi="= ei tuettu" data-en="= not supported">= ei tuettu</span></span>
+      <span data-fi="* Vain laitteiston sähkökulut" data-en="* Only hardware electricity cost">* Vain laitteiston sähkökulut</span>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap reveal">
+  <div class="section-header">
+    <div class="section-tag" data-fi="Roadmap" data-en="Roadmap">Roadmap</div>
+    <h2 data-fi="Rakennuspolku" data-en="The building path">Rakennuspolku</h2>
+    <p data-fi="Viidessä vaiheessa kohti omaa foundation modelia."
+       data-en="Five phases toward our own foundation model.">
+      Viidessä vaiheessa kohti omaa foundation modelia.
+    </p>
+  </div>
+  <div class="roadmap-items">
+    <div class="roadmap-item">
+      <span class="phase-badge phase-1" data-fi="Phase 1 · Q1 2026 ✓" data-en="Phase 1 · Q1 2026 ✓">Phase 1 · Q1 2026 ✓</span>
+      <div class="roadmap-content">
+        <h3 data-fi="LOCAL AI — Yksityinen AI-assistentti" data-en="LOCAL AI — Private AI assistant">LOCAL AI — Yksityinen AI-assistentti</h3>
+        <p data-fi="Chat, pysyvä muisti (SQLite + Qdrant), tiedostotyökalut, Coder- ja Debug-agentit, sessiohistoria, Settings-paneeli, reaaliaikainen laitemonitorointi (CPU/RAM/DDR5/GPU/VRAM), Tailscale-etäkäyttö. Täysin offline. v0.1.0–v0.1.50"
+           data-en="Chat, persistent memory (SQLite + Qdrant), file tools, Coder and Debug agents, session history, Settings panel, real-time hardware monitoring (CPU/RAM/DDR5/GPU/VRAM), Tailscale remote access. Fully offline. v0.1.0–v0.1.50">
+          Chat, pysyvä muisti (SQLite + Qdrant), tiedostotyökalut, Coder- ja Debug-agentit, sessiohistoria, Settings-paneeli, reaaliaikainen laitemonitorointi (CPU/RAM/DDR5/GPU/VRAM), Tailscale-etäkäyttö. Täysin offline. <em style="color:var(--muted)">v0.1.0–v0.1.50</em>
+        </p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <span class="phase-badge phase-1" data-fi="Phase 2 · Q2 2026 ✓" data-en="Phase 2 · Q2 2026 ✓">Phase 2 · Q2 2026 ✓</span>
+      <div class="roadmap-content">
+        <h3 data-fi="TOOL & MULTI-AGENT — AI tekee oikeita asioita" data-en="TOOL & MULTI-AGENT — AI does real things">TOOL & MULTI-AGENT — AI tekee oikeita asioita</h3>
+        <p data-fi="Shell sandbox, Git, SSH/SFTP, policy engine, 10+ erikoisagenttia (Planner/Coder/Debug/Critic/Security/Swarm), Tauri .exe desktop app, autonominen opetustila, parannettu web-haku (DuckDuckGo + SearXNG), GitHub CI/CD 4 alustalle. v0.1.51–v0.1.84"
+           data-en="Shell sandbox, Git, SSH/SFTP, policy engine, 10+ specialized agents (Planner/Coder/Debug/Critic/Security/Swarm), Tauri .exe desktop app, autonomous learning mode, enhanced web search (DuckDuckGo + SearXNG), GitHub CI/CD for 4 platforms. v0.1.51–v0.1.84">
+          Shell sandbox, Git, SSH/SFTP, policy engine, 10+ erikoisagenttia (Planner/Coder/Debug/Critic/Security/Swarm), Tauri .exe desktop app, autonominen opetustila, parannettu web-haku, GitHub CI/CD 4 alustalle. <em style="color:var(--muted)">v0.1.51–v0.1.84</em>
+        </p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <span class="phase-badge phase-3" data-fi="Phase 3 · Q3 2026 ⬤" data-en="Phase 3 · Q3 2026 ⬤">Phase 3 · Q3 2026 ⬤</span>
+      <div class="roadmap-content">
+        <h3 data-fi="POLISH & CENTRAL CORE — Laadun viimeistely + yhteisöoppiminen" data-en="POLISH & CENTRAL CORE — Quality finish + community learning">POLISH & CENTRAL CORE — Laadun viimeistely + yhteisöoppiminen</h3>
+        <p data-fi="7 kielen i18n (fi/en/sv/de/fr/es/zh) ✓, kielikorjaus (lang_enforce system promptissa) ✓, meta-tag-siivous chat-historiassa ✓, AST-anonymisointi ✓, skill extraction ✓, Knowledge Pack -jakelu ✓, 205 Q&amp;A oppimisdataa ✓ — Central Core odottaa Hetzner-palvelinta. v0.1.85–v0.1.97"
+           data-en="7-language i18n (fi/en/sv/de/fr/es/zh) ✓, language fix (lang_enforce in system prompt) ✓, meta-tag cleanup in chat history ✓, AST anonymization ✓, skill extraction ✓, Knowledge Pack distribution ✓, 205 Q&amp;A training data ✓ — Central Core awaiting Hetzner server. v0.1.85–v0.1.97">
+          7 kielen i18n ✓, kielikorjaus system promptissa ✓, chat-historian meta-tag-siivous ✓, AST-anonymisointi ✓, Knowledge Pack -jakelu ✓, 285 taitorekisteriä ✓ — Central Core odottaa Hetzner-palvelinta. <em style="color:var(--muted)">v0.1.85–v0.1.97</em>
+        </p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <span class="phase-badge phase-4" data-fi="Phase 4 · Q4 2026" data-en="Phase 4 · Q4 2026">Phase 4 · Q4 2026</span>
+      <div class="roadmap-content">
+        <h3 data-fi="CENTRAL CORE LIVE — Yhteisö oppii yhdessä" data-en="CENTRAL CORE LIVE — Community learns together">CENTRAL CORE LIVE — Yhteisö oppii yhdessä</h3>
+        <p data-fi="Hetzner CX22 -palvelimen käynnistys, Central Core tuotantoon (Docker + Nginx + SSL), federative knowledge sharing käyttäjien välillä, plugin marketplace, VSCode-laajennus julkaistu."
+           data-en="Hetzner CX22 server launch, Central Core to production (Docker + Nginx + SSL), federated knowledge sharing between users, plugin marketplace, VSCode extension released.">
+          Hetzner CX22 -palvelimen käynnistys, Central Core tuotantoon (Docker + Nginx + SSL), federatiivinen knowledge sharing käyttäjien välillä, plugin marketplace, VSCode-laajennus julkaistu.
+        </p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <span class="phase-badge phase-4" data-fi="Phase 5 · 2027" data-en="Phase 5 · 2027">Phase 5 · 2027</span>
+      <div class="roadmap-content">
+        <h3 data-fi="SELF-IMPROVEMENT — Järjestelmä kehittää itseään" data-en="SELF-IMPROVEMENT — System evolves itself">SELF-IMPROVEMENT — Järjestelmä kehittää itseään</h3>
+        <p data-fi="Federated learning, meta-oppiminen agenttikomboille, synthetic benchmark generator, Private Team Cloud, macOS + Linux natiivibuildit." data-en="Federated learning, meta-learning for agent combos, synthetic benchmark generator, Private Team Cloud, macOS + Linux native builds.">Federated learning, meta-oppiminen agenttikomboille, synthetic benchmark generator, Private Team Cloud, macOS + Linux natiivibuildit.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <span class="phase-badge phase-5" data-fi="Phase 6 · 2028+" data-en="Phase 6 · 2028+">Phase 6 · 2028+</span>
+      <div class="roadmap-content">
+        <h3 data-fi="OWN MODEL — C0D3A1 foundation model" data-en="OWN MODEL — C0D3A1 foundation model">OWN MODEL — C0D3A1 foundation model</h3>
+        <p data-fi="LoRA fine-tuning anonymisoidusta onnistumisdatasta. 7B → 13B → 32B. Oma malli, oma data, oma tulevaisuus. C0D3A1 ei enää tarvitse Ollamaa." data-en="LoRA fine-tuning from anonymized success data. 7B → 13B → 32B. Own model, own data, own future. C0D3A1 no longer needs Ollama.">LoRA fine-tuning anonymisoidusta onnistumisdatasta. 7B → 13B → 32B. Oma malli, oma data, oma tulevaisuus. C0D3A1 ei enää tarvitse Ollamaa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <div class="cta-glow"></div>
+  <h2>
+    <span data-fi="Valmis aloittamaan?" data-en="Ready to start?">Valmis aloittamaan?</span><br>
+    <span class="grad" data-fi="Sinun AI. Sinun säännöt." data-en="Your AI. Your rules.">Sinun AI. Sinun säännöt.</span>
+  </h2>
+  <p data-fi="Liity jonoon ja saa C0D3A1 ensimmäisten joukossa."
+     data-en="Join the waitlist and get C0D3A1 among the first.">
+    Liity jonoon ja saa C0D3A1 ensimmäisten joukossa.
+  </p>
+  <a href="mailto:asiakaspalvelu@selaa.fi?subject=COD3A1%20-%20Jono" class="btn-primary" data-fi="Liity jonoon →" data-en="Join Waitlist →">Liity jonoon →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>C0D3A1</strong> &nbsp;·&nbsp;
+    <span data-fi="Hajautettu itseoppiva AI-järjestelmä" data-en="Distributed self-learning AI system">Hajautettu itseoppiva AI-järjestelmä</span>
+    &nbsp;·&nbsp; 2026
+  </p>
+</footer>
+
+<script>
+// ── CANVAS PARTICLE NETWORK ──────────────────────────────────────
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes = [], frame = 0;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function initNodes() {
+  nodes = [];
+  const count = Math.floor((W * H) / 18000);
+  for (let i = 0; i < count; i++) {
+    nodes.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.5,
+    });
+  }
+}
+
+function drawNetwork() {
+  ctx.clearRect(0, 0, W, H);
+
+  // subtle radial gradient at center
+  const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)*0.7);
+  grad.addColorStop(0, 'rgba(124,58,237,0.04)');
+  grad.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // edges
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 160) {
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = `rgba(0,212,255,${0.06 * (1 - dist/160)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // nodes
+  nodes.forEach(n => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,212,255,0.35)';
+    ctx.fill();
+
+    n.x += n.vx;
+    n.y += n.vy;
+    if (n.x < 0 || n.x > W) n.vx *= -1;
+    if (n.y < 0 || n.y > H) n.vy *= -1;
+  });
+
+  frame++;
+  requestAnimationFrame(drawNetwork);
+}
+
+resize();
+initNodes();
+drawNetwork();
+window.addEventListener('resize', () => { resize(); initNodes(); });
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── LANGUAGE SWITCH ──────────────────────────────────────────────
+let currentLang = 'fi';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-fi').classList.toggle('active', lang === 'fi');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  document.querySelectorAll('[data-fi]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (!val) return;
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = val;
+    } else {
+      el.innerHTML = val;
+    }
+  });
+}
+</script>
+</body>
+</html>
