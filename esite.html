@@ -837,12 +837,12 @@
         <div class="stat-label" data-fi="Yksityinen" data-en="Private">Yksityinen</div>
       </div>
       <div class="stat">
-        <div class="stat-num">6×</div>
+        <div class="stat-num">2×</div>
         <div class="stat-label" data-fi="Pienempi muistinkulutus" data-en="Less memory usage">Pienempi muistinkulutus</div>
       </div>
       <div class="stat">
-        <div class="stat-num">285</div>
-        <div class="stat-label" data-fi="Opittua taitoa" data-en="Learned skills">Opittua taitoa</div>
+        <div class="stat-num">484</div>
+        <div class="stat-label" data-fi="Opittua Q&amp;A-paria" data-en="Learned Q&amp;A pairs">Opittua Q&amp;A-paria</div>
       </div>
       <div class="stat">
         <div class="stat-num">7</div>
@@ -857,8 +857,8 @@
   <p data-fi="Teknologiapohja" data-en="Built on">Teknologiapohja</p>
   <div class="trust-logos">
     <span>QWEN 2.5</span>
-    <span>vLLM</span>
-    <span>TURBOQUANT</span>
+    <span>OLLAMA</span>
+    <span>MCP</span>
     <span>QDRANT</span>
     <span>FASTAPI</span>
     <span>DOCKER</span>
@@ -899,9 +899,9 @@
     <div class="feat-card">
       <div class="feat-icon green">🤖</div>
       <h3 data-fi="Multi-agent järjestelmä" data-en="Multi-agent system">Multi-agent järjestelmä</h3>
-      <p data-fi="Seitsemän erikoisagenttia (Planner, Coder, Debug, Tool, Memory, Critic, Security) yhteistyössä — AI ei vain puhu, se toimii."
-         data-en="Seven specialized agents (Planner, Coder, Debug, Tool, Memory, Critic, Security) working together — the AI doesn't just talk, it acts.">
-        Seitsemän erikoisagenttia (Planner, Coder, Debug, Tool, Memory, Critic, Security) yhteistyössä — AI ei vain puhu, se toimii.
+      <p data-fi="10+ erikoisagenttia (Planner, Coder, Debug, Tool, Critic, Security, Swarm, GOAP) yhteistyössä — AI ei vain puhu, se toimii."
+         data-en="10+ specialized agents (Planner, Coder, Debug, Tool, Critic, Security, Swarm, GOAP) working together — the AI doesn't just talk, it acts.">
+        10+ erikoisagenttia (Planner, Coder, Debug, Tool, Critic, Security, Swarm, GOAP) yhteistyössä — AI ei vain puhu, se toimii.
       </p>
     </div>
 
@@ -967,6 +967,15 @@
         AI hakee ensin, vastaa sitten — ei arvata faktoja. DuckDuckGo Search API korvaa epäluotettavan HTML-scrapingin. Tukee myös oman SearXNG-instanssin konfigurointia täydelliseen yksityisyyteen.
       </p>
     </div>
+
+    <div class="feat-card">
+      <div class="feat-icon purple">🔌</div>
+      <h3 data-fi="MCP-tuki — 46 palvelinta" data-en="MCP support — 46 servers">MCP-tuki — 46 palvelinta</h3>
+      <p data-fi="Sisäänrakennettu Model Context Protocol -katalogi: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana ja kymmeniä muita — yhdellä klikkauksella käyttöön, ei manuaalista konfigurointia."
+         data-en="Built-in Model Context Protocol catalog: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana and dozens more — one click to enable, no manual configuration.">
+        Sisäänrakennettu Model Context Protocol -katalogi: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana ja kymmeniä muita — yhdellä klikkauksella käyttöön, ei manuaalista konfigurointia.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -994,17 +1003,17 @@
       <div class="step">
         <div class="step-num">02</div>
         <h3 data-fi="Oppii jokaisesta onnistumisesta" data-en="Learns from every success">Oppii jokaisesta onnistumisesta</h3>
-        <p data-fi="Kun ratkaiset ongelman, Critic-agentti arvioi tuloksen. Onnistuneet ratkaisut anonymisoidaan AST-tasolla ja lähetetään Central Coren oppimispipelineen."
-           data-en="When you solve a problem, the Critic agent evaluates the result. If you have given consent, successful solutions are anonymized at the AST level and sent to the Central Core learning pipeline.">
-          Kun ratkaiset ongelman, Critic-agentti arvioi tuloksen. Jos olet antanut suostumuksen, onnistuneet ratkaisut anonymisoidaan AST-tasolla ja lähetetään Central Coren oppimispipelineen.
+        <p data-fi="Kun ratkaiset ongelman, Critic-agentti arvioi tuloksen paikallisesti jo nyt. Central Core -yhteys aktivoituu, kun palvelin on käynnissä — silloin onnistuneet ratkaisut anonymisoidaan AST-tasolla ja lähetetään oppimispipelineen."
+           data-en="When you solve a problem, the Critic agent already evaluates the result locally today. The Central Core connection activates once the server is running — that's when successful solutions get anonymized at the AST level and sent to the learning pipeline.">
+          Kun ratkaiset ongelman, Critic-agentti arvioi tuloksen paikallisesti jo nyt. Central Core -yhteys aktivoituu, kun palvelin on käynnissä — silloin onnistuneet ratkaisut anonymisoidaan AST-tasolla ja lähetetään oppimispipelineen.
         </p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <h3 data-fi="Kaikki saavat paremman AI:n" data-en="Everyone gets a smarter AI">Kaikki saavat paremman AI:n</h3>
-        <p data-fi="Central Core pakkaa parhaat ratkaisut Knowledge Packeiksi. Kaikki LOCAL NODEt päivittyvät — sinun AI:si kasvaa koko yhteisön onnistumisilla."
-           data-en="Central Core packages the best solutions into Knowledge Packs. All LOCAL NODEs update — your AI grows with the whole community's successes.">
-          Central Core pakkaa parhaat ratkaisut Knowledge Packeiksi. Kaikki LOCAL NODEt päivittyvät — sinun AI:si kasvaa koko yhteisön onnistumisilla.
+        <p data-fi="Kun Central Core on käynnissä, se pakkaa parhaat ratkaisut Knowledge Packeiksi ja kaikki LOCAL NODEt päivittyvät — sinun AI:si kasvaa koko yhteisön onnistumisilla."
+           data-en="Once Central Core is running, it packages the best solutions into Knowledge Packs and all LOCAL NODEs update — your AI grows with the whole community's successes.">
+          Kun Central Core on käynnissä, se pakkaa parhaat ratkaisut Knowledge Packeiksi ja kaikki LOCAL NODEt päivittyvät — sinun AI:si kasvaa koko yhteisön onnistumisilla.
         </p>
       </div>
     </div>
@@ -1048,13 +1057,13 @@
 <section class="tq-callout reveal">
   <div class="tq-box">
     <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.5rem;">
-      <div class="tq-num">6×</div>
+      <div class="tq-num">2×</div>
       <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;font-weight:700;padding:0.3rem 0.8rem;border:1px solid rgba(0,212,255,0.4);border-radius:999px;color:#00d4ff;background:rgba(0,212,255,0.08);">v0.1.34+</span>
     </div>
     <h3 data-fi="Pienempi muistinkulutus — ei tarkkuushäviötä" data-en="Less memory usage — zero accuracy loss">Pienempi muistinkulutus — ei tarkkuushäviötä</h3>
-    <p data-fi="C0D3A1 käyttää Googlen TurboQuant-teknologiaa (ICLR 2026) KV-välimuistin pakkaamiseen. 16 bitistä 3 bittiin — mikään ei muutu tuloksissa, mutta muistinkulutus putoaa kuudennekseen. Nyt myös 6–8 GB GPU riittää."
-       data-en="C0D3A1 uses Google's TurboQuant technology (ICLR 2026) for KV cache compression. From 16 bits to 3 bits — nothing changes in the output, but memory usage drops to one sixth. Now even a 6–8 GB GPU is enough.">
-      C0D3A1 käyttää Googlen TurboQuant-teknologiaa (ICLR 2026) KV-välimuistin pakkaamiseen. 16 bitistä 3 bittiin — mikään ei muutu tuloksissa, mutta muistinkulutus putoaa kuudennekseen. Nyt myös 6–8 GB GPU riittää.
+    <p data-fi="C0D3A1 pakkaa KV-välimuistin oletuksena 16 bitistä 8 bittiin — mikään ei muutu tuloksissa, mutta muistinkulutus putoaa puoleen. Tehokäyttäjät voivat ottaa käyttöön 4-bittisen tilan jopa 4× pienempään muistinkulutukseen. Nyt myös 6–8 GB GPU riittää."
+       data-en="C0D3A1 compresses the KV cache from 16 bits to 8 bits by default — nothing changes in the output, but memory usage drops by half. Power users can enable 4-bit mode for up to 4× less memory usage. Now even a 6–8 GB GPU is enough.">
+      C0D3A1 pakkaa KV-välimuistin oletuksena 16 bitistä 8 bittiin — mikään ei muutu tuloksissa, mutta muistinkulutus putoaa puoleen. Tehokäyttäjät voivat ottaa käyttöön 4-bittisen tilan jopa 4× pienempään muistinkulutukseen. Nyt myös 6–8 GB GPU riittää.
     </p>
     <div class="tq-grid">
       <div class="tq-item">
@@ -1253,7 +1262,7 @@
           </tr>
           <tr>
             <td data-fi="Yhteisöoppiminen" data-en="Community learning">Yhteisöoppiminen</td>
-            <td class="highlight"><span class="ct-yes">✓ Central Core</span></td>
+            <td class="highlight"><span class="ct-part" data-fi="~ Tulossa (Central Core)" data-en="~ Coming soon (Central Core)">~ Tulossa (Central Core)</span></td>
             <td><span class="ct-no">✗</span></td>
             <td><span class="ct-no">✗</span></td>
             <td><span class="ct-no">✗</span></td>
@@ -1295,9 +1304,9 @@
   <div class="section-header">
     <div class="section-tag" data-fi="Roadmap" data-en="Roadmap">Roadmap</div>
     <h2 data-fi="Rakennuspolku" data-en="The building path">Rakennuspolku</h2>
-    <p data-fi="Viidessä vaiheessa kohti omaa foundation modelia."
-       data-en="Five phases toward our own foundation model.">
-      Viidessä vaiheessa kohti omaa foundation modelia.
+    <p data-fi="Kuudessa vaiheessa kohti omaa foundation modelia."
+       data-en="Six phases toward our own foundation model.">
+      Kuudessa vaiheessa kohti omaa foundation modelia.
     </p>
   </div>
   <div class="roadmap-items">
@@ -1322,12 +1331,12 @@
       </div>
     </div>
     <div class="roadmap-item">
-      <span class="phase-badge phase-3" data-fi="Phase 3 · Q3 2026 ⬤" data-en="Phase 3 · Q3 2026 ⬤">Phase 3 · Q3 2026 ⬤</span>
+      <span class="phase-badge phase-3" data-fi="Phase 3 · Q3 2026 ✓" data-en="Phase 3 · Q3 2026 ✓">Phase 3 · Q3 2026 ✓</span>
       <div class="roadmap-content">
-        <h3 data-fi="POLISH & CENTRAL CORE — Laadun viimeistely + yhteisöoppiminen" data-en="POLISH & CENTRAL CORE — Quality finish + community learning">POLISH & CENTRAL CORE — Laadun viimeistely + yhteisöoppiminen</h3>
-        <p data-fi="7 kielen i18n (fi/en/sv/de/fr/es/zh) ✓, kielikorjaus (lang_enforce system promptissa) ✓, meta-tag-siivous chat-historiassa ✓, AST-anonymisointi ✓, skill extraction ✓, Knowledge Pack -jakelu ✓, 205 Q&amp;A oppimisdataa ✓ — Central Core odottaa Hetzner-palvelinta. v0.1.85–v0.1.97"
-           data-en="7-language i18n (fi/en/sv/de/fr/es/zh) ✓, language fix (lang_enforce in system prompt) ✓, meta-tag cleanup in chat history ✓, AST anonymization ✓, skill extraction ✓, Knowledge Pack distribution ✓, 205 Q&amp;A training data ✓ — Central Core awaiting Hetzner server. v0.1.85–v0.1.97">
-          7 kielen i18n ✓, kielikorjaus system promptissa ✓, chat-historian meta-tag-siivous ✓, AST-anonymisointi ✓, Knowledge Pack -jakelu ✓, 285 taitorekisteriä ✓ — Central Core odottaa Hetzner-palvelinta. <em style="color:var(--muted)">v0.1.85–v0.1.97</em>
+        <h3 data-fi="POLISH & AGENTTIEN LAAJENNUS — Laadun viimeistely + uudet kyvyt" data-en="POLISH & AGENT EXPANSION — Quality finish + new capabilities">POLISH & AGENTTIEN LAAJENNUS — Laadun viimeistely + uudet kyvyt</h3>
+        <p data-fi="7 kielen i18n (fi/en/sv/de/fr/es/zh) ✓, AST-anonymisointi ✓, skill extraction + Knowledge Pack -formaatti ✓, MCP-integraatio (46 palvelinta: GitHub, Supabase, Home Assistant, Semgrep...) ✓, multi-model reititys ✓, Browser-agentti (Playwright) ✓, AIDefence-suojaus ✓, Swarm-orkestrointi + GOAP-suunnittelu ✓, autonominen opetustila (13 lähdettä, ei salasanaa) ✓, VSCode + JetBrains -laajennukset ✓ — Central Coren koodi valmis, tuotantopalvelin odottaa Hetzner-tilausta. v0.1.85–v0.2.32"
+           data-en="7-language i18n (fi/en/sv/de/fr/es/zh) ✓, AST anonymization ✓, skill extraction + Knowledge Pack format ✓, MCP integration (46 servers: GitHub, Supabase, Home Assistant, Semgrep...) ✓, multi-model routing ✓, Browser agent (Playwright) ✓, AIDefence protection ✓, Swarm orchestration + GOAP planning ✓, autonomous learning mode (13 sources, no password) ✓, VSCode + JetBrains extensions ✓ — Central Core code complete, production server awaiting Hetzner order. v0.1.85–v0.2.32">
+          7 kielen i18n ✓, AST-anonymisointi ✓, skill extraction + Knowledge Pack -formaatti ✓, MCP-integraatio (46 palvelinta) ✓, multi-model reititys ✓, Browser-agentti ✓, AIDefence-suojaus ✓, Swarm + GOAP ✓, autonominen opetustila ✓, VSCode + JetBrains -laajennukset ✓ — Central Coren koodi valmis, tuotantopalvelin odottaa Hetzner-tilausta. <em style="color:var(--muted)">v0.1.85–v0.2.32</em>
         </p>
       </div>
     </div>
@@ -1335,24 +1344,24 @@
       <span class="phase-badge phase-4" data-fi="Phase 4 · Q4 2026" data-en="Phase 4 · Q4 2026">Phase 4 · Q4 2026</span>
       <div class="roadmap-content">
         <h3 data-fi="CENTRAL CORE LIVE — Yhteisö oppii yhdessä" data-en="CENTRAL CORE LIVE — Community learns together">CENTRAL CORE LIVE — Yhteisö oppii yhdessä</h3>
-        <p data-fi="Hetzner CX22 -palvelimen käynnistys, Central Core tuotantoon (Docker + Nginx + SSL), federative knowledge sharing käyttäjien välillä, plugin marketplace, VSCode-laajennus julkaistu."
-           data-en="Hetzner CX22 server launch, Central Core to production (Docker + Nginx + SSL), federated knowledge sharing between users, plugin marketplace, VSCode extension released.">
-          Hetzner CX22 -palvelimen käynnistys, Central Core tuotantoon (Docker + Nginx + SSL), federatiivinen knowledge sharing käyttäjien välillä, plugin marketplace, VSCode-laajennus julkaistu.
+        <p data-fi="Hetzner CX23 -palvelimen tilaus ja käynnistys, Central Core tuotantoon (Docker + Nginx + SSL), federatiivinen knowledge sharing käyttäjien välillä, plugin marketplace."
+           data-en="Hetzner CX23 server order and launch, Central Core to production (Docker + Nginx + SSL), federated knowledge sharing between users, plugin marketplace.">
+          Hetzner CX23 -palvelimen tilaus ja käynnistys, Central Core tuotantoon (Docker + Nginx + SSL), federatiivinen knowledge sharing käyttäjien välillä, plugin marketplace.
         </p>
       </div>
     </div>
     <div class="roadmap-item">
-      <span class="phase-badge phase-4" data-fi="Phase 5 · 2027" data-en="Phase 5 · 2027">Phase 5 · 2027</span>
-      <div class="roadmap-content">
-        <h3 data-fi="SELF-IMPROVEMENT — Järjestelmä kehittää itseään" data-en="SELF-IMPROVEMENT — System evolves itself">SELF-IMPROVEMENT — Järjestelmä kehittää itseään</h3>
-        <p data-fi="Federated learning, meta-oppiminen agenttikomboille, synthetic benchmark generator, Private Team Cloud, macOS + Linux natiivibuildit." data-en="Federated learning, meta-learning for agent combos, synthetic benchmark generator, Private Team Cloud, macOS + Linux native builds.">Federated learning, meta-oppiminen agenttikomboille, synthetic benchmark generator, Private Team Cloud, macOS + Linux natiivibuildit.</p>
-      </div>
-    </div>
-    <div class="roadmap-item">
-      <span class="phase-badge phase-5" data-fi="Phase 6 · 2028+" data-en="Phase 6 · 2028+">Phase 6 · 2028+</span>
+      <span class="phase-badge phase-4" data-fi="Phase 5 · Q1–Q2 2027" data-en="Phase 5 · Q1–Q2 2027">Phase 5 · Q1–Q2 2027</span>
       <div class="roadmap-content">
         <h3 data-fi="OWN MODEL — C0D3A1 foundation model" data-en="OWN MODEL — C0D3A1 foundation model">OWN MODEL — C0D3A1 foundation model</h3>
         <p data-fi="LoRA fine-tuning anonymisoidusta onnistumisdatasta. 7B → 13B → 32B. Oma malli, oma data, oma tulevaisuus. C0D3A1 ei enää tarvitse Ollamaa." data-en="LoRA fine-tuning from anonymized success data. 7B → 13B → 32B. Own model, own data, own future. C0D3A1 no longer needs Ollama.">LoRA fine-tuning anonymisoidusta onnistumisdatasta. 7B → 13B → 32B. Oma malli, oma data, oma tulevaisuus. C0D3A1 ei enää tarvitse Ollamaa.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <span class="phase-badge phase-5" data-fi="Phase 6 · H2 2027" data-en="Phase 6 · H2 2027">Phase 6 · H2 2027</span>
+      <div class="roadmap-content">
+        <h3 data-fi="SELF-IMPROVEMENT — Järjestelmä kehittää itseään" data-en="SELF-IMPROVEMENT — System evolves itself">SELF-IMPROVEMENT — Järjestelmä kehittää itseään</h3>
+        <p data-fi="Federated learning, meta-oppiminen agenttikomboille, synthetic benchmark generator, Private Team Cloud, macOS + Linux natiivibuildit." data-en="Federated learning, meta-learning for agent combos, synthetic benchmark generator, Private Team Cloud, macOS + Linux native builds.">Federated learning, meta-oppiminen agenttikomboille, synthetic benchmark generator, Private Team Cloud, macOS + Linux natiivibuildit.</p>
       </div>
     </div>
   </div>
