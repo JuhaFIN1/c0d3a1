@@ -779,6 +779,104 @@
   }
   .compare-note span { display: flex; align-items: center; gap: 0.4rem; }
 
+  /* ── MEDIA GENERATION SHOWCASE ── */
+  .mediagen {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .mediagen-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 768px) { .mediagen-grid { grid-template-columns: 1fr; } }
+
+  .mg-card {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .mg-card:hover { transform: translateY(-6px); }
+
+  .mg-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 24px;
+    padding: 2px;
+    background: conic-gradient(from var(--spin, 0deg), transparent 0%, var(--mg-color, var(--cyan)) 15%, transparent 30%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: spin-border 4s linear infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes spin-border {
+    to { --spin: 360deg; }
+  }
+
+  @property --spin {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .mg-card.c-image { --mg-color: #00d4ff; }
+  .mg-card.c-video { --mg-color: #7c3aed; }
+  .mg-card.c-music { --mg-color: #00ff88; }
+
+  .mg-icon {
+    width: 72px; height: 72px;
+    margin: 0 auto 1.2rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    background: rgba(255,255,255,0.04);
+    animation: mg-float 3.5s ease-in-out infinite;
+  }
+
+  .mg-card.c-video .mg-icon { animation-delay: 0.4s; }
+  .mg-card.c-music .mg-icon { animation-delay: 0.8s; }
+
+  @keyframes mg-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.05); }
+  }
+
+  .mg-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .mg-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+
+  .mg-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+  }
+
+  .mg-note {
+    text-align: center;
+    margin-top: 2.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
   /* ── SCROLL ANIMATIONS ── */
   .reveal {
     opacity: 0;
@@ -804,7 +902,7 @@
       <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
       <button id="btn-en" onclick="setLang('en')">EN</button>
     </div>
-    <a href="mailto:asiakaspalvelu@selaa.fi?subject=COD3A1%20-%20Jono" class="nav-cta" data-fi="Liity jonoon" data-en="Join Waitlist">Liity jonoon</a>
+    <a href="https://github.com/JuhaFIN1/c0d3a1/releases" target="_blank" rel="noreferrer" class="nav-cta" data-fi="Lataa heti!" data-en="Download now!">Lataa heti!</a>
   </div>
 </nav>
 
@@ -827,7 +925,7 @@
     </p>
 
     <div class="hero-cta">
-      <a href="mailto:asiakaspalvelu@selaa.fi?subject=COD3A1%20-%20Jono" class="btn-primary" data-fi="Liity jonoon" data-en="Join Waitlist">Liity jonoon</a>
+      <a href="https://github.com/JuhaFIN1/c0d3a1/releases" target="_blank" rel="noreferrer" class="btn-primary" data-fi="Lataa heti!" data-en="Download now!">Lataa heti!</a>
       <a href="#how" class="btn-secondary" data-fi="Miten se toimii?" data-en="How does it work?">Miten se toimii?</a>
     </div>
 
@@ -845,8 +943,8 @@
         <div class="stat-label" data-fi="Opittua Q&amp;A-paria" data-en="Learned Q&amp;A pairs">Opittua Q&amp;A-paria</div>
       </div>
       <div class="stat">
-        <div class="stat-num">7</div>
-        <div class="stat-label" data-fi="Kieltä tuettu" data-en="Languages supported">Kieltä tuettu</div>
+        <div class="stat-num">6</div>
+        <div class="stat-label" data-fi="Mediageneraatio-osaa" data-en="Media-gen modules">Mediageneraatio-osaa</div>
       </div>
     </div>
   </div>
@@ -858,6 +956,7 @@
   <div class="trust-logos">
     <span>QWEN 2.5</span>
     <span>OLLAMA</span>
+    <span>COMFYUI</span>
     <span>MCP</span>
     <span>QDRANT</span>
     <span>FASTAPI</span>
@@ -917,9 +1016,9 @@
     <div class="feat-card">
       <div class="feat-icon cyan">🌐</div>
       <h3 data-fi="Yhteisöoppiminen" data-en="Community learning">Yhteisöoppiminen</h3>
-      <p data-fi="Suostumuksellasi: jokainen ratkaisu anonymisoidaan AST-tasolla ja validoidaan ennen yhteiseen muistiin tallentamista. Kaikki hyötyvät ilman yksityisyysriskiä. Ilman suostumusta mitään ei lähde."
-         data-en="With your consent: every solution is anonymized at AST level and validated before being stored in shared memory. Everyone benefits without privacy risk. Without consent, nothing is sent.">
-        Suostumuksellasi: jokainen ratkaisu anonymisoidaan AST-tasolla ja validoidaan ennen yhteiseen muistiin tallentamista. Kaikki hyötyvät ilman yksityisyysriskiä. Ilman suostumusta mitään ei lähde.
+      <p data-fi="Automaattinen ja pakollinen kaikille: jokainen vahvistettu ratkaisu anonymisoidaan AST-tasolla ja validoidaan ennen yhteiseen muistiin tallentamista. Kaikki hyötyvät ilman yksityisyysriskiä — henkilötiedot, tiedostopolut ja tunnisteet eivät koskaan lähde."
+         data-en="Automatic and mandatory for everyone: every verified solution is anonymized at AST level and validated before being stored in shared memory. Everyone benefits without privacy risk — personal data, file paths, and identifiers never leave your device.">
+        Automaattinen ja pakollinen kaikille: jokainen vahvistettu ratkaisu anonymisoidaan AST-tasolla ja validoidaan ennen yhteiseen muistiin tallentamista. Kaikki hyötyvät ilman yksityisyysriskiä — henkilötiedot, tiedostopolut ja tunnisteet eivät koskaan lähde.
       </p>
     </div>
 
@@ -974,6 +1073,33 @@
       <p data-fi="Sisäänrakennettu Model Context Protocol -katalogi: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana ja kymmeniä muita — yhdellä klikkauksella käyttöön, ei manuaalista konfigurointia."
          data-en="Built-in Model Context Protocol catalog: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana and dozens more — one click to enable, no manual configuration.">
         Sisäänrakennettu Model Context Protocol -katalogi: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana ja kymmeniä muita — yhdellä klikkauksella käyttöön, ei manuaalista konfigurointia.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon cyan">📎</div>
+      <h3 data-fi="Tiedostot & näkömalli" data-en="Files & vision model">Tiedostot &amp; näkömalli</h3>
+      <p data-fi="Liitä kuvia, PDF:iä ja koodia suoraan chattiin — sisäänrakennettu näkömalli (qwen2.5vl) tulkitsee kuvat paikallisesti. Ei tallennu pysyvästi levylle."
+         data-en="Attach images, PDFs and code directly in chat — a built-in vision model (qwen2.5vl) interprets images locally. Never saved permanently to disk.">
+        Liitä kuvia, PDF:iä ja koodia suoraan chattiin — sisäänrakennettu näkömalli (qwen2.5vl) tulkitsee kuvat paikallisesti. Ei tallennu pysyvästi levylle.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon purple">🗺️</div>
+      <h3 data-fi="Projektin kokonaisanalyysi" data-en="Whole-project analysis">Projektin kokonaisanalyysi</h3>
+      <p data-fi="Yhdellä komennolla: arkkitehtuuri, teknologiapino, riippuvuusgraafi ja mahdolliset ongelmakohdat (esim. orpo-tiedostot) — koko projektista kerralla."
+         data-en="One command: architecture, tech stack, dependency graph, and potential problem spots (e.g. orphan files) — for the whole project at once.">
+        Yhdellä komennolla: arkkitehtuuri, teknologiapino, riippuvuusgraafi ja mahdolliset ongelmakohdat — koko projektista kerralla.
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon green">🎨</div>
+      <h3 data-fi="Kuvat, video & musiikki — paikallisesti" data-en="Images, video & music — local">Kuvat, video &amp; musiikki — paikallisesti</h3>
+      <p data-fi="Pyydä chatissa kuva, video tai musiikkikappale — ComfyUI generoi sen suoraan omalla näytönohjaimellasi. Ei pilvi-API:a, ei kuukausimaksua."
+         data-en="Just ask in chat for an image, video, or song — ComfyUI generates it directly on your own GPU. No cloud API, no subscription.">
+        Pyydä chatissa kuva, video tai musiikkikappale — ComfyUI generoi sen suoraan omalla näytönohjaimellasi. Ei pilvi-API:a, ei kuukausimaksua.
       </p>
     </div>
   </div>
@@ -1048,7 +1174,7 @@
     <div class="arch-node">
       <div class="node-icon">🤝</div>
       <h4 data-fi="Kaikki käyttäjät" data-en="All users">Kaikki käyttäjät</h4>
-      <p data-fi="Saavat paremman AI:n opt-in" data-en="Get a smarter AI opt-in">Saavat paremman AI:n opt-in</p>
+      <p data-fi="Saavat automaattisesti paremman AI:n" data-en="Automatically get a smarter AI">Saavat automaattisesti paremman AI:n</p>
     </div>
   </div>
 </section>
@@ -1080,6 +1206,51 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- MEDIA GENERATION -->
+<section class="mediagen reveal">
+  <div class="section-header">
+    <div class="section-tag" data-fi="Uutta — v0.2.42–v0.2.45" data-en="New — v0.2.42–v0.2.45">Uutta — v0.2.42–v0.2.45</div>
+    <h2 data-fi="Kuvat, video ja musiikki — chatista suoraan" data-en="Images, video and music — straight from chat">Kuvat, video ja musiikki — chatista suoraan</h2>
+    <p data-fi="ComfyUI-integraatio tuo generatiivisen median chattiin — kaikki paikallisesti omalla näytönohjaimellasi, ei pilvi-API:a."
+       data-en="ComfyUI integration brings generative media into chat — all locally on your own GPU, no cloud API.">
+      ComfyUI-integraatio tuo generatiivisen median chattiin — kaikki paikallisesti omalla näytönohjaimellasi, ei pilvi-API:a.
+    </p>
+  </div>
+  <div class="mediagen-grid">
+    <div class="mg-card c-image">
+      <div class="mg-icon">🖼️</div>
+      <h3 data-fi="Kuvat &amp; logot" data-en="Images &amp; logos">Kuvat &amp; logot</h3>
+      <p data-fi="&ldquo;Piirrä logo yritykselleni&rdquo; — SD1.5/SDXL-pohjainen generointi suoraan chat-kuplaan."
+         data-en="&ldquo;Draw a logo for my company&rdquo; — SD1.5/SDXL-based generation straight into the chat bubble.">
+        &ldquo;Piirrä logo yritykselleni&rdquo; — SD1.5/SDXL-pohjainen generointi suoraan chat-kuplaan.
+      </p>
+      <span class="mg-tag">image_generate</span>
+    </div>
+    <div class="mg-card c-video">
+      <div class="mg-icon">🎬</div>
+      <h3 data-fi="Video" data-en="Video">Video</h3>
+      <p data-fi="&ldquo;Tee video punaisesta omenasta&rdquo; — LTX-2-mallilla, muutamassa minuutissa omalla GPU:llasi."
+         data-en="&ldquo;Make a video of a red apple&rdquo; — powered by LTX-2, in minutes on your own GPU.">
+        &ldquo;Tee video punaisesta omenasta&rdquo; — LTX-2-mallilla, muutamassa minuutissa omalla GPU:llasi.
+      </p>
+      <span class="mg-tag">video_generate</span>
+    </div>
+    <div class="mg-card c-music">
+      <div class="mg-icon">🎵</div>
+      <h3 data-fi="Musiikki" data-en="Music">Musiikki</h3>
+      <p data-fi="&ldquo;Säveltäisitkö lofi-biisin sateen äänellä&rdquo; — ACE-Step tuottaa kokonaisen kappaleen sekunneissa."
+         data-en="&ldquo;Compose a lofi track with rain sounds&rdquo; — ACE-Step generates a full track in seconds.">
+        &ldquo;Säveltäisitkö lofi-biisin sateen äänellä&rdquo; — ACE-Step tuottaa kokonaisen kappaleen sekunneissa.
+      </p>
+      <span class="mg-tag">music_generate</span>
+    </div>
+  </div>
+  <p class="mg-note" data-fi="Vaatii ComfyUI:n asennettuna — C0D3A1 tunnistaa ja käynnistää sen automaattisesti Asetuksista."
+     data-en="Requires ComfyUI installed — C0D3A1 detects and starts it automatically from Settings.">
+    Vaatii ComfyUI:n asennettuna — C0D3A1 tunnistaa ja käynnistää sen automaattisesti Asetuksista.
+  </p>
 </section>
 
 <!-- MEMORY -->
@@ -1133,7 +1304,7 @@
       <br>
       <span class="ok">✓</span> local_data.stays_on_device = True<br>
       <span class="ok">✓</span> anonymization = "AST-level"<br>
-      <span class="ok">✓</span> sync = user.controls()<br>
+      <span class="ok">✓</span> community_sync = mandatory_but_anonymous<br>
       <span class="ok">✓</span> offline_mode = available<br>
       <span class="ok">✓</span> remote_access = "tailscale p2p"<br>
       <span class="ok">✓</span> backup_export = "local zip"<br>
@@ -1148,14 +1319,14 @@
     <div class="privacy-text">
       <div class="section-tag" data-fi="Yksityisyys" data-en="Privacy">Yksityisyys</div>
       <h2 data-fi="Sinun datasi ei koskaan poistu koneeltasi" data-en="Your data never leaves your machine">Sinun datasi ei koskaan poistu koneeltasi</h2>
-      <p data-fi="Yhteisöoppiminen tapahtuu ilman yksityisyyskompromisseja. Koodisi anonymisoidaan AST-tasolla ennen lähetystä — rakenne säilyy, mutta identiteetti ei."
-         data-en="Community learning happens without privacy compromises. Your code is anonymized at the AST level before sending — structure is preserved, identity is not.">
-        Yhteisöoppiminen tapahtuu ilman yksityisyyskompromisseja. Koodisi anonymisoidaan AST-tasolla ennen lähetystä — rakenne säilyy, mutta identiteetti ei.
+      <p data-fi="Yhteisöoppiminen tapahtuu ilman yksityisyyskompromisseja. Koodisi anonymisoidaan AST-tasolla ennen lähetystä — rakenne säilyy, mutta identiteetti ei. Jakaminen on automaattinen ja pakollinen jokaiselle käyttäjälle, jotta yhteisömalli kasvaa yhdessä — mutta anonymisointi on aina päällä eikä sitä voi ohittaa."
+         data-en="Community learning happens without privacy compromises. Your code is anonymized at the AST level before sending — structure is preserved, identity is not. Sharing is automatic and mandatory for every user so the community model grows together — but anonymization is always on and cannot be bypassed.">
+        Yhteisöoppiminen tapahtuu ilman yksityisyyskompromisseja. Koodisi anonymisoidaan AST-tasolla ennen lähetystä — rakenne säilyy, mutta identiteetti ei. Jakaminen on automaattinen ja pakollinen jokaiselle käyttäjälle, jotta yhteisömalli kasvaa yhdessä — mutta anonymisointi on aina päällä eikä sitä voi ohittaa.
       </p>
       <ul class="privacy-list">
         <li data-fi="Raakadata ei koskaan poistu koneeltasi" data-en="Raw data never leaves your machine">Raakadata ei koskaan poistu koneeltasi</li>
         <li data-fi="AST-anonymisointi poistaa kaikki tunnisteet" data-en="AST anonymization removes all identifiers">AST-anonymisointi poistaa kaikki tunnisteet</li>
-        <li data-fi="Sinä valitset mitä synkronoidaan" data-en="You choose what gets synced">Sinä valitset mitä synkronoidaan</li>
+        <li data-fi="Chattiin liitetyt tiedostot eivät tallennu pysyvästi" data-en="Files attached to chat are never saved permanently">Chattiin liitetyt tiedostot eivät tallennu pysyvästi</li>
         <li data-fi="Täysin offline-käyttö mahdollinen" data-en="Fully offline use available">Täysin offline-käyttö mahdollinen</li>
         <li data-fi="Jokainen agenttitoiminto lokitettu ja toistettavissa" data-en="Every agent action logged and replayable">Jokainen agenttitoiminto lokitettu ja toistettavissa</li>
       </ul>
@@ -1270,13 +1441,22 @@
             <td><span class="ct-no">✗</span></td>
           </tr>
           <tr>
-            <td data-fi="7 kielen tuki (fi/en/sv/de/fr/es/zh)" data-en="7 language support (fi/en/sv/de/fr/es/zh)">7 kielen tuki</td>
+            <td data-fi="Kielituki (fi/en)" data-en="Language support (fi/en)">Kielituki (fi/en)</td>
             <td class="highlight"><span class="ct-yes">✓</span></td>
             <td><span class="ct-yes">✓</span></td>
             <td><span class="ct-yes">✓</span></td>
             <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
             <td><span class="ct-part" data-fi="Rajoitettu" data-en="Limited">Rajoitettu</span></td>
             <td><span class="ct-part" data-fi="Malli-riippuu" data-en="Model-dependent">Malli-riippuu</span></td>
+          </tr>
+          <tr>
+            <td data-fi="Kuva/video/musiikkigenerointi" data-en="Image/video/music generation">Kuva/video/musiikkigenerointi</td>
+            <td class="highlight"><span class="ct-yes">✓ ComfyUI</span></td>
+            <td><span class="ct-part" data-fi="Vain kuva" data-en="Image only">Vain kuva</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
+            <td><span class="ct-no">✗</span></td>
           </tr>
           <tr>
             <td data-fi="GDPR — ei pilvidata" data-en="GDPR — no cloud data">GDPR — ei pilvidata</td>
@@ -1334,9 +1514,9 @@
       <span class="phase-badge phase-3" data-fi="Phase 3 · Q3 2026 ✓" data-en="Phase 3 · Q3 2026 ✓">Phase 3 · Q3 2026 ✓</span>
       <div class="roadmap-content">
         <h3 data-fi="POLISH & AGENTTIEN LAAJENNUS — Laadun viimeistely + uudet kyvyt" data-en="POLISH & AGENT EXPANSION — Quality finish + new capabilities">POLISH & AGENTTIEN LAAJENNUS — Laadun viimeistely + uudet kyvyt</h3>
-        <p data-fi="7 kielen i18n (fi/en/sv/de/fr/es/zh) ✓, AST-anonymisointi ✓, skill extraction + Knowledge Pack -formaatti ✓, MCP-integraatio (46 palvelinta: GitHub, Supabase, Home Assistant, Semgrep...) ✓, multi-model reititys ✓, Browser-agentti (Playwright) ✓, AIDefence-suojaus ✓, Swarm-orkestrointi + GOAP-suunnittelu ✓, autonominen opetustila (13 lähdettä, ei salasanaa) ✓, VSCode + JetBrains -laajennukset ✓ — Central Coren koodi valmis, tuotantopalvelin odottaa Hetzner-tilausta. v0.1.85–v0.2.32"
-           data-en="7-language i18n (fi/en/sv/de/fr/es/zh) ✓, AST anonymization ✓, skill extraction + Knowledge Pack format ✓, MCP integration (46 servers: GitHub, Supabase, Home Assistant, Semgrep...) ✓, multi-model routing ✓, Browser agent (Playwright) ✓, AIDefence protection ✓, Swarm orchestration + GOAP planning ✓, autonomous learning mode (13 sources, no password) ✓, VSCode + JetBrains extensions ✓ — Central Core code complete, production server awaiting Hetzner order. v0.1.85–v0.2.32">
-          7 kielen i18n ✓, AST-anonymisointi ✓, skill extraction + Knowledge Pack -formaatti ✓, MCP-integraatio (46 palvelinta) ✓, multi-model reititys ✓, Browser-agentti ✓, AIDefence-suojaus ✓, Swarm + GOAP ✓, autonominen opetustila ✓, VSCode + JetBrains -laajennukset ✓ — Central Coren koodi valmis, tuotantopalvelin odottaa Hetzner-tilausta. <em style="color:var(--muted)">v0.1.85–v0.2.32</em>
+        <p data-fi="i18n (fi/en) ✓, AST-anonymisointi ✓, skill extraction + Knowledge Pack -formaatti ✓, MCP-integraatio (46 palvelinta: GitHub, Supabase, Home Assistant, Semgrep...) ✓, multi-model reititys ✓, Browser-agentti (Playwright) ✓, AIDefence-suojaus ✓, Swarm-orkestrointi + GOAP-suunnittelu ✓, autonominen opetustila (13 lähdettä, ei salasanaa) ✓, VSCode + JetBrains -laajennukset ✓, näkömalli + tiedostoliitteet chattiin ✓, projektin kokonaisanalyysi ✓, kuva/video/musiikkigenerointi ComfyUI:lla ✓ — Central Coren koodi valmis, tuotantopalvelin odottaa Hetzner-tilausta. v0.1.85–v0.2.45"
+           data-en="i18n (fi/en) ✓, AST anonymization ✓, skill extraction + Knowledge Pack format ✓, MCP integration (46 servers: GitHub, Supabase, Home Assistant, Semgrep...) ✓, multi-model routing ✓, Browser agent (Playwright) ✓, AIDefence protection ✓, Swarm orchestration + GOAP planning ✓, autonomous learning mode (13 sources, no password) ✓, VSCode + JetBrains extensions ✓, vision model + chat file attachments ✓, whole-project analysis ✓, image/video/music generation via ComfyUI ✓ — Central Core code complete, production server awaiting Hetzner order. v0.1.85–v0.2.45">
+          i18n (fi/en) ✓, AST-anonymisointi ✓, skill extraction + Knowledge Pack -formaatti ✓, MCP-integraatio (46 palvelinta) ✓, multi-model reititys ✓, Browser-agentti ✓, AIDefence-suojaus ✓, Swarm + GOAP ✓, autonominen opetustila ✓, VSCode + JetBrains -laajennukset ✓, näkömalli + tiedostoliitteet ✓, projektianalyysi ✓, kuva/video/musiikkigenerointi (ComfyUI) ✓ — Central Coren koodi valmis, tuotantopalvelin odottaa Hetzner-tilausta. <em style="color:var(--muted)">v0.1.85–v0.2.45</em>
         </p>
       </div>
     </div>
@@ -1374,11 +1554,11 @@
     <span data-fi="Valmis aloittamaan?" data-en="Ready to start?">Valmis aloittamaan?</span><br>
     <span class="grad" data-fi="Sinun AI. Sinun säännöt." data-en="Your AI. Your rules.">Sinun AI. Sinun säännöt.</span>
   </h2>
-  <p data-fi="Liity jonoon ja saa C0D3A1 ensimmäisten joukossa."
-     data-en="Join the waitlist and get C0D3A1 among the first.">
-    Liity jonoon ja saa C0D3A1 ensimmäisten joukossa.
+  <p data-fi="Lataa C0D3A1 nyt ja ota käyttöön minuuteissa."
+     data-en="Download C0D3A1 now and get running in minutes.">
+    Lataa C0D3A1 nyt ja ota käyttöön minuuteissa.
   </p>
-  <a href="mailto:asiakaspalvelu@selaa.fi?subject=COD3A1%20-%20Jono" class="btn-primary" data-fi="Liity jonoon →" data-en="Join Waitlist →">Liity jonoon →</a>
+  <a href="https://github.com/JuhaFIN1/c0d3a1/releases" target="_blank" rel="noreferrer" class="btn-primary" data-fi="Lataa heti! →" data-en="Download now! →">Lataa heti! →</a>
 </section>
 
 <!-- FOOTER -->
@@ -1387,6 +1567,13 @@
     <strong>C0D3A1</strong> &nbsp;·&nbsp;
     <span data-fi="Hajautettu itseoppiva AI-järjestelmä" data-en="Distributed self-learning AI system">Hajautettu itseoppiva AI-järjestelmä</span>
     &nbsp;·&nbsp; 2026
+  </p>
+  <p style="margin-top:0.8rem;">
+    <a href="LICENSE.md" style="color:var(--muted);text-decoration:none;" data-fi="Käyttöoikeus" data-en="License">Käyttöoikeus</a>
+    &nbsp;·&nbsp;
+    <a href="TERMS.md" style="color:var(--muted);text-decoration:none;" data-fi="Käyttöehdot" data-en="Terms">Käyttöehdot</a>
+    &nbsp;·&nbsp;
+    <a href="PRIVACY.md" style="color:var(--muted);text-decoration:none;" data-fi="Tietosuoja" data-en="Privacy">Tietosuoja</a>
   </p>
 </footer>
 
