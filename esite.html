@@ -8,18 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #07070f;
-    --bg2: #0d0d1a;
-    --bg3: #11111f;
-    --cyan: #00d4ff;
-    --purple: #7c3aed;
-    --green: #00ff88;
-    --pink: #ff2d78;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --border: rgba(255,255,255,0.07);
-    --glow-cyan: 0 0 40px rgba(0,212,255,0.3);
-    --glow-purple: 0 0 40px rgba(124,58,237,0.3);
+    --bg: #15110c;
+    --bg2: #1d1710;
+    --bg3: #251d13;
+    --cyan: #5eead4;
+    --purple: #ffb454;
+    --green: #a8e063;
+    --pink: #ff7a45;
+    --text: #f1e7d8;
+    --muted: #a08e76;
+    --border: rgba(255,180,84,0.1);
+    --glow-cyan: 0 0 40px rgba(94,234,212,0.25);
+    --glow-purple: 0 0 40px rgba(255,180,84,0.3);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -134,8 +134,8 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.4rem 1.2rem;
-    background: rgba(0,212,255,0.1);
-    border: 1px solid rgba(0,212,255,0.3);
+    background: rgba(94,234,212,0.1);
+    border: 1px solid rgba(94,234,212,0.3);
     border-radius: 999px;
     font-size: 0.8rem;
     font-weight: 600;
@@ -198,7 +198,7 @@
     display: inline-block;
   }
 
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.4); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(94,234,212,0.4); }
 
   .btn-secondary {
     padding: 0.9rem 2.5rem;
@@ -215,7 +215,7 @@
     display: inline-block;
   }
 
-  .btn-secondary:hover { border-color: var(--cyan); background: rgba(0,212,255,0.05); }
+  .btn-secondary:hover { border-color: var(--cyan); background: rgba(94,234,212,0.05); }
 
   /* STATS ROW */
   .hero-stats {
@@ -267,8 +267,8 @@
 
   /* ── FEATURES ── */
   .features {
-    padding: 6rem 2rem;
-    max-width: 1200px;
+    padding: 4rem 2rem;
+    max-width: 1280px;
     margin: 0 auto;
   }
 
@@ -298,15 +298,15 @@
 
   .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    gap: 1rem;
   }
 
   .feat-card {
     background: var(--bg2);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.3rem 1.4rem;
     transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     position: relative;
     overflow: hidden;
@@ -323,30 +323,31 @@
   }
 
   .feat-card:hover {
-    border-color: rgba(0,212,255,0.3);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4), var(--glow-cyan);
+    border-color: rgba(94,234,212,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.35), var(--glow-cyan);
   }
 
   .feat-card:hover::before { opacity: 1; }
 
   .feat-icon {
-    width: 52px; height: 52px;
-    border-radius: 14px;
+    width: 36px; height: 36px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.7rem;
   }
 
-  .feat-icon.cyan { background: rgba(0,212,255,0.12); }
-  .feat-icon.purple { background: rgba(124,58,237,0.12); }
-  .feat-icon.green { background: rgba(0,255,136,0.12); }
-  .feat-icon.pink { background: rgba(255,45,120,0.12); }
+  .feat-icon svg { width: 18px; height: 18px; }
 
-  .feat-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
-  .feat-card p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
+  .feat-icon.cyan { background: rgba(94,234,212,0.12); color: var(--cyan); }
+  .feat-icon.purple { background: rgba(255,180,84,0.12); color: var(--purple); }
+  .feat-icon.green { background: rgba(168,224,99,0.12); color: var(--green); }
+  .feat-icon.pink { background: rgba(255,122,69,0.12); color: var(--pink); }
+
+  .feat-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .feat-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 
   /* ── HOW IT WORKS ── */
   .how {
@@ -398,46 +399,57 @@
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: 24px;
-    padding: 3rem 2rem;
+    padding: 2.5rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 
   .arch-node {
     background: var(--bg3);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 1.5rem 2rem;
+    padding: 1.1rem 1.2rem;
     text-align: center;
-    min-width: 180px;
+    min-width: 130px;
+    flex: 1 1 0;
     transition: border-color 0.3s, box-shadow 0.3s;
   }
 
   .arch-node:hover { border-color: var(--cyan); box-shadow: var(--glow-cyan); }
 
   .arch-node.central {
-    background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,212,255,0.1));
-    border-color: rgba(124,58,237,0.4);
-    min-width: 220px;
+    background: linear-gradient(135deg, rgba(255,180,84,0.15), rgba(94,234,212,0.1));
+    border-color: rgba(255,180,84,0.4);
+    min-width: 150px;
   }
 
-  .arch-node .node-icon { font-size: 2rem; margin-bottom: 0.5rem; }
-  .arch-node h4 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cyan); margin-bottom: 0.3rem; }
-  .arch-node p { font-size: 0.8rem; color: var(--muted); }
+  .arch-node .node-icon { margin-bottom: 0.4rem; color: var(--cyan); }
+  .arch-node .node-icon svg { width: 26px; height: 26px; }
+  .arch-node.central .node-icon { color: var(--purple); }
+  .arch-node h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cyan); margin-bottom: 0.3rem; }
+  .arch-node p { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
 
   .arch-arrow {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--muted);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.2rem;
+    flex: 0 0 auto;
   }
 
-  .arch-arrow span { font-size: 0.65rem; color: var(--muted); text-align: center; max-width: 90px; line-height: 1.3; }
+  .arch-arrow span { font-size: 0.6rem; color: var(--muted); text-align: center; max-width: 70px; line-height: 1.25; }
+
+  @media (max-width: 560px) {
+    .arch-node { min-width: 100px; padding: 0.8rem 0.6rem; }
+    .arch-node p { display: none; }
+    .arch-arrow span { display: none; }
+  }
 
   /* ── MEMORY SECTION ── */
   .memory {
@@ -456,8 +468,6 @@
 
   @media (max-width: 768px) {
     .memory-tiers { grid-template-columns: 1fr; }
-    .arch-diagram { flex-direction: column; }
-    .arch-arrow { transform: rotate(90deg); }
   }
 
   .tier {
@@ -468,9 +478,9 @@
     overflow: hidden;
   }
 
-  .tier-1 { background: linear-gradient(135deg, rgba(0,212,255,0.08), transparent); border-color: rgba(0,212,255,0.2); }
-  .tier-2 { background: linear-gradient(135deg, rgba(124,58,237,0.08), transparent); border-color: rgba(124,58,237,0.2); }
-  .tier-3 { background: linear-gradient(135deg, rgba(0,255,136,0.08), transparent); border-color: rgba(0,255,136,0.2); }
+  .tier-1 { background: linear-gradient(135deg, rgba(94,234,212,0.08), transparent); border-color: rgba(94,234,212,0.2); }
+  .tier-2 { background: linear-gradient(135deg, rgba(255,180,84,0.08), transparent); border-color: rgba(255,180,84,0.2); }
+  .tier-3 { background: linear-gradient(135deg, rgba(168,224,99,0.08), transparent); border-color: rgba(168,224,99,0.2); }
 
   .tier-label {
     font-size: 0.7rem;
@@ -508,8 +518,8 @@
   }
 
   .tq-box {
-    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08));
-    border: 1px solid rgba(0,212,255,0.25);
+    background: linear-gradient(135deg, rgba(94,234,212,0.08), rgba(255,180,84,0.08));
+    border: 1px solid rgba(94,234,212,0.25);
     border-radius: 24px;
     padding: 3.5rem 2.5rem;
     position: relative;
@@ -521,7 +531,7 @@
     position: absolute;
     top: -50%; left: -50%;
     width: 200%; height: 200%;
-    background: radial-gradient(ellipse at center, rgba(0,212,255,0.04) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgba(94,234,212,0.04) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -541,12 +551,13 @@
 
   .tq-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     margin-top: 2.5rem;
   }
 
-  @media (max-width: 600px) { .tq-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .tq-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .tq-grid { grid-template-columns: 1fr; } }
 
   .tq-item {
     background: rgba(255,255,255,0.04);
@@ -575,6 +586,7 @@
   @media (max-width: 768px) { .privacy-inner { grid-template-columns: 1fr; } }
 
   .privacy-visual {
+    position: relative;
     background: var(--bg3);
     border: 1px solid var(--border);
     border-radius: 24px;
@@ -583,11 +595,29 @@
     font-size: 0.8rem;
     line-height: 1.8;
     color: var(--muted);
+    overflow: hidden;
+  }
+
+  .privacy-visual::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, transparent, rgba(94,234,212,0.06) 45%, rgba(94,234,212,0.1) 50%, rgba(94,234,212,0.06) 55%, transparent);
+    animation: scan-sweep 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) { .privacy-visual::after { animation: none; display: none; } }
+
+  @keyframes scan-sweep {
+    0%   { top: -40%; }
+    100% { top: 100%; }
   }
 
   .privacy-visual .ok { color: var(--green); }
   .privacy-visual .no { color: var(--pink); }
-  .privacy-visual .comment { color: #3d4f6e; }
+  .privacy-visual .comment { color: #6b5a45; }
 
   .privacy-text h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
   .privacy-text p { color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
@@ -608,7 +638,7 @@
     align-items: center;
     justify-content: center;
     width: 22px; height: 22px;
-    background: rgba(0,255,136,0.15);
+    background: rgba(168,224,99,0.15);
     color: var(--green);
     border-radius: 50%;
     font-size: 0.7rem;
@@ -646,11 +676,11 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
-  .phase-1 { background: rgba(0,212,255,0.15); color: var(--cyan); }
-  .phase-2 { background: rgba(124,58,237,0.15); color: #a78bfa; }
-  .phase-3 { background: rgba(0,255,136,0.15); color: var(--green); }
-  .phase-4 { background: rgba(255,45,120,0.15); color: var(--pink); }
-  .phase-5 { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(124,58,237,0.15)); color: var(--cyan); }
+  .phase-1 { background: rgba(94,234,212,0.15); color: var(--cyan); }
+  .phase-2 { background: rgba(255,180,84,0.15); color: #a78bfa; }
+  .phase-3 { background: rgba(168,224,99,0.15); color: var(--green); }
+  .phase-4 { background: rgba(255,122,69,0.15); color: var(--pink); }
+  .phase-5 { background: linear-gradient(135deg, rgba(94,234,212,0.15), rgba(255,180,84,0.15)); color: var(--cyan); }
 
   .roadmap-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
   .roadmap-content p { font-size: 0.9rem; color: var(--muted); }
@@ -667,7 +697,7 @@
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 600px; height: 300px;
-    background: radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(255,180,84,0.15) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -732,7 +762,7 @@
   .compare-table thead th:first-child { text-align: left; }
 
   .compare-table thead th.highlight {
-    background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(124,58,237,0.12));
+    background: linear-gradient(135deg, rgba(94,234,212,0.12), rgba(255,180,84,0.12));
     color: var(--cyan);
   }
 
@@ -760,10 +790,10 @@
   }
 
   .compare-table td.highlight {
-    background: rgba(0,212,255,0.04);
+    background: rgba(94,234,212,0.04);
   }
 
-  .ct-yes  { color: #00ff88; font-weight: 700; }
+  .ct-yes  { color: #a8e063; font-weight: 700; }
   .ct-no   { color: #475569; }
   .ct-part { color: #f59e0b; font-size: 0.8rem; }
   .ct-free { color: var(--cyan); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
@@ -832,21 +862,23 @@
     inherits: false;
   }
 
-  .mg-card.c-image { --mg-color: #00d4ff; }
-  .mg-card.c-video { --mg-color: #7c3aed; }
-  .mg-card.c-music { --mg-color: #00ff88; }
+  .mg-card.c-image { --mg-color: #5eead4; }
+  .mg-card.c-video { --mg-color: #ffb454; }
+  .mg-card.c-music { --mg-color: #a8e063; }
 
   .mg-icon {
-    width: 72px; height: 72px;
+    width: 64px; height: 64px;
     margin: 0 auto 1.2rem;
-    border-radius: 20px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.2rem;
     background: rgba(255,255,255,0.04);
+    color: var(--mg-color, var(--cyan));
     animation: mg-float 3.5s ease-in-out infinite;
   }
+
+  .mg-icon svg { width: 28px; height: 28px; }
 
   .mg-card.c-video .mg-icon { animation-delay: 0.4s; }
   .mg-card.c-music .mg-icon { animation-delay: 0.8s; }
@@ -866,8 +898,8 @@
     font-weight: 700;
     padding: 0.25rem 0.7rem;
     border-radius: 999px;
-    background: rgba(255,255,255,0.06);
-    color: var(--muted);
+    background: color-mix(in srgb, var(--mg-color, var(--cyan)) 14%, transparent);
+    color: var(--mg-color, var(--cyan));
   }
 
   .mg-note {
@@ -978,7 +1010,7 @@
 
   <div class="features-grid">
     <div class="feat-card">
-      <div class="feat-icon cyan">🔒</div>
+      <div class="feat-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
       <h3 data-fi="Privacy-first" data-en="Privacy-first">Privacy-first</h3>
       <p data-fi="Kaikki data pysyy omalla koneellasi. Voit käyttää C0D3A1:ä täysin ilman internet-yhteyttä. Sinä päätät mitä synkronoidaan."
          data-en="All data stays on your own machine. You can use C0D3A1 completely offline. You decide what gets synced.">
@@ -987,7 +1019,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon purple">🧠</div>
+      <div class="feat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.7-4 3-9 3s-9-1.3-9-3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/></svg></div>
       <h3 data-fi="Pysyvä muisti" data-en="Persistent memory">Pysyvä muisti</h3>
       <p data-fi="AI muistaa kaikki projektisi, päätöksesi ja tyylisi. Semanttinen hakuvektorimuisti löytää relevantin tiedon vuosienkin takaa."
          data-en="The AI remembers all your projects, decisions, and style. Semantic vector memory finds relevant information even from years back.">
@@ -996,7 +1028,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon green">🤖</div>
+      <div class="feat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5m0 0l-5 5m5-5l5 5"/></svg></div>
       <h3 data-fi="Multi-agent järjestelmä" data-en="Multi-agent system">Multi-agent järjestelmä</h3>
       <p data-fi="10+ erikoisagenttia (Planner, Coder, Debug, Tool, Critic, Security, Swarm, GOAP) yhteistyössä — AI ei vain puhu, se toimii."
          data-en="10+ specialized agents (Planner, Coder, Debug, Tool, Critic, Security, Swarm, GOAP) working together — the AI doesn't just talk, it acts.">
@@ -1005,7 +1037,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon pink">⚡</div>
+      <div class="feat-icon pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
       <h3 data-fi="Oikeat työkalut" data-en="Real tools">Oikeat työkalut</h3>
       <p data-fi="AI voi lukea ja muokata tiedostoja, ajaa testejä, käyttää Gitiä ja deployata palvelimia — sandboxatussa ympäristössä turvallisesti."
          data-en="The AI can read and edit files, run tests, use Git and deploy servers — safely in a sandboxed environment.">
@@ -1014,7 +1046,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon cyan">🌐</div>
+      <div class="feat-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></div>
       <h3 data-fi="Yhteisöoppiminen" data-en="Community learning">Yhteisöoppiminen</h3>
       <p data-fi="Automaattinen ja pakollinen kaikille: jokainen vahvistettu ratkaisu anonymisoidaan AST-tasolla ja validoidaan ennen yhteiseen muistiin tallentamista. Kaikki hyötyvät ilman yksityisyysriskiä — henkilötiedot, tiedostopolut ja tunnisteet eivät koskaan lähde."
          data-en="Automatic and mandatory for everyone: every verified solution is anonymized at AST level and validated before being stored in shared memory. Everyone benefits without privacy risk — personal data, file paths, and identifiers never leave your device.">
@@ -1023,7 +1055,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon purple">📈</div>
+      <div class="feat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
       <h3 data-fi="Itseään kehittävä" data-en="Self-improving">Itseään kehittävä</h3>
       <p data-fi="Järjestelmä oppii onnistumisista — ei vain datasta. Parhaat ratkaisut nousevat automaattisesti kaikkien käyttöön Knowledge Pack -päivityksinä."
          data-en="The system learns from successes — not just data. The best solutions automatically rise to the top and reach everyone as Knowledge Pack updates.">
@@ -1032,7 +1064,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon cyan">📡</div>
+      <div class="feat-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a11 11 0 0 1 14 0"/><path d="M8.5 16a6 6 0 0 1 7 0"/><circle cx="12" cy="19" r="1"/></svg></div>
       <h3 data-fi="Etäkäyttö — mistä tahansa" data-en="Remote access — from anywhere">Etäkäyttö — mistä tahansa</h3>
       <p data-fi="Tailscale-integraatio mahdollistaa pääsyn LOCAL NODEen puhelimelta tai toiselta koneelta — suoraan, ilman porttien avausta tai pilvipalveluja. Salattu peer-to-peer-yhteys."
          data-en="Tailscale integration allows access to LOCAL NODE from your phone or another machine — directly, without port forwarding or cloud services. Encrypted peer-to-peer connection.">
@@ -1041,7 +1073,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon green">🖥️</div>
+      <div class="feat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg></div>
       <h3 data-fi="Laitemonitorointi" data-en="Hardware monitoring">Laitemonitorointi</h3>
       <p data-fi="Reaaliaikainen footeri näyttää CPU:n nimen ja säikeet, RAM:n tyypin (DDR5/DDR4) ja nopeuden, GPU:n ja VRAM:n käytön — kaikki yhdellä silmäyksellä. Tukee useita GPUita."
          data-en="Real-time footer shows CPU name and threads, RAM type (DDR5/DDR4) and speed, GPU and VRAM usage — all at a glance. Supports multiple GPUs.">
@@ -1050,7 +1082,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon purple">🎓</div>
+      <div class="feat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
       <h3 data-fi="Autonominen opetustila" data-en="Autonomous learning mode">Autonominen opetustila</h3>
       <p data-fi="AI hakee itsenäisesti koodausdataa Stack Overflowsta, GitHubista, Real Pythonista ja HA Communitysta — salasanasuojattu, ajastettava, live-logi asetuksissa. Korjaukset muuttuvat automaattisesti uusiksi hakuaiheiksi."
          data-en="AI independently searches for coding data from Stack Overflow, GitHub, Real Python and HA Community — password-protected, schedulable, live log in settings. Your corrections automatically become new search topics.">
@@ -1059,7 +1091,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon cyan">🔍</div>
+      <div class="feat-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
       <h3 data-fi="Parannettu web-haku" data-en="Enhanced web search">Parannettu web-haku</h3>
       <p data-fi="AI hakee ensin, vastaa sitten — ei arvata faktoja. DuckDuckGo Search API korvaa epäluotettavan HTML-scrapingin. Tukee myös oman SearXNG-instanssin konfigurointia täydelliseen yksityisyyteen."
          data-en="AI searches first, then answers — no guessing facts. DuckDuckGo Search API replaces unreliable HTML scraping. Supports configuring your own SearXNG instance for full privacy.">
@@ -1068,7 +1100,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon purple">🔌</div>
+      <div class="feat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v4M15 2v4M6 8h12l-1 5a5 5 0 0 1-10 0L6 8z"/><path d="M12 17v5"/></svg></div>
       <h3 data-fi="MCP-tuki — 46 palvelinta" data-en="MCP support — 46 servers">MCP-tuki — 46 palvelinta</h3>
       <p data-fi="Sisäänrakennettu Model Context Protocol -katalogi: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana ja kymmeniä muita — yhdellä klikkauksella käyttöön, ei manuaalista konfigurointia."
          data-en="Built-in Model Context Protocol catalog: GitHub, Supabase, MongoDB, Redis, Home Assistant, Semgrep, Grafana and dozens more — one click to enable, no manual configuration.">
@@ -1077,7 +1109,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon cyan">📎</div>
+      <div class="feat-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11l-9 9a5 5 0 0 1-7-7l9-9a3.5 3.5 0 0 1 5 5l-9 9a2 2 0 0 1-3-3l8-8"/></svg></div>
       <h3 data-fi="Tiedostot & näkömalli" data-en="Files & vision model">Tiedostot &amp; näkömalli</h3>
       <p data-fi="Liitä kuvia, PDF:iä ja koodia suoraan chattiin — sisäänrakennettu näkömalli (qwen2.5vl) tulkitsee kuvat paikallisesti. Ei tallennu pysyvästi levylle."
          data-en="Attach images, PDFs and code directly in chat — a built-in vision model (qwen2.5vl) interprets images locally. Never saved permanently to disk.">
@@ -1086,7 +1118,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon purple">🗺️</div>
+      <div class="feat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2z"/><path d="M9 3v16M15 5v16"/></svg></div>
       <h3 data-fi="Projektin kokonaisanalyysi" data-en="Whole-project analysis">Projektin kokonaisanalyysi</h3>
       <p data-fi="Yhdellä komennolla: arkkitehtuuri, teknologiapino, riippuvuusgraafi ja mahdolliset ongelmakohdat (esim. orpo-tiedostot) — koko projektista kerralla."
          data-en="One command: architecture, tech stack, dependency graph, and potential problem spots (e.g. orphan files) — for the whole project at once.">
@@ -1095,7 +1127,7 @@
     </div>
 
     <div class="feat-card">
-      <div class="feat-icon green">🎨</div>
+      <div class="feat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20c1 0 2-1 2-2 0-.6-.3-1.1-.5-1.5-.2-.4-.3-.7-.3-1 0-.8.7-1.5 1.5-1.5H17a3 3 0 0 0 3-3c0-5.5-4.5-11-8-11z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="8" r="1"/></svg></div>
       <h3 data-fi="Kuvat, video & musiikki — paikallisesti" data-en="Images, video & music — local">Kuvat, video &amp; musiikki — paikallisesti</h3>
       <p data-fi="Pyydä chatissa kuva, video tai musiikkikappale — ComfyUI generoi sen suoraan omalla näytönohjaimellasi. Ei pilvi-API:a, ei kuukausimaksua."
          data-en="Just ask in chat for an image, video, or song — ComfyUI generates it directly on your own GPU. No cloud API, no subscription.">
@@ -1154,7 +1186,7 @@
   </div>
   <div class="arch-diagram">
     <div class="arch-node">
-      <div class="node-icon">💻</div>
+      <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
       <h4 data-fi="Sinun koneesi" data-en="Your machine">Sinun koneesi</h4>
       <p data-fi="Chat · Muisti · Agentit · Tiedostot" data-en="Chat · Memory · Agents · Files">Chat · Muisti · Agentit · Tiedostot</p>
     </div>
@@ -1163,7 +1195,7 @@
       <span data-fi="anonymisoitu oppimisdata" data-en="anonymized learning data">anonymisoitu oppimisdata</span>
     </div>
     <div class="arch-node central">
-      <div class="node-icon">🌐</div>
+      <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></div>
       <h4 data-fi="Central Core" data-en="Central Core">Central Core</h4>
       <p data-fi="Rankkausta · Skill extraction · Knowledge Packs" data-en="Ranking · Skill extraction · Knowledge Packs">Rankkausta · Skill extraction · Knowledge Packs</p>
     </div>
@@ -1172,7 +1204,7 @@
       <span data-fi="knowledge pack päivitys" data-en="knowledge pack update">knowledge pack päivitys</span>
     </div>
     <div class="arch-node">
-      <div class="node-icon">🤝</div>
+      <div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.3 3-6 7-6s7 2.7 7 6"/><path d="M15 14.5c2.8.3 5 2.3 5 5.5"/></svg></div>
       <h4 data-fi="Kaikki käyttäjät" data-en="All users">Kaikki käyttäjät</h4>
       <p data-fi="Saavat automaattisesti paremman AI:n" data-en="Automatically get a smarter AI">Saavat automaattisesti paremman AI:n</p>
     </div>
@@ -1184,7 +1216,7 @@
   <div class="tq-box">
     <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.5rem;">
       <div class="tq-num">2×</div>
-      <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;font-weight:700;padding:0.3rem 0.8rem;border:1px solid rgba(0,212,255,0.4);border-radius:999px;color:#00d4ff;background:rgba(0,212,255,0.08);">v0.1.34+</span>
+      <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;font-weight:700;padding:0.3rem 0.8rem;border:1px solid rgba(94,234,212,0.4);border-radius:999px;color:#5eead4;background:rgba(94,234,212,0.08);">v0.1.34+</span>
     </div>
     <h3 data-fi="Pienempi muistinkulutus — ei tarkkuushäviötä" data-en="Less memory usage — zero accuracy loss">Pienempi muistinkulutus — ei tarkkuushäviötä</h3>
     <p data-fi="C0D3A1 pakkaa KV-välimuistin oletuksena 16 bitistä 8 bittiin — mikään ei muutu tuloksissa, mutta muistinkulutus putoaa puoleen. Tehokäyttäjät voivat ottaa käyttöön 4-bittisen tilan jopa 4× pienempään muistinkulutukseen. Nyt myös 6–8 GB GPU riittää."
@@ -1204,6 +1236,10 @@
         <div class="vram">24 GB</div>
         <div class="model" data-fi="70B malli + 32k konteksti — Claude-luokan suorituskyky" data-en="70B model + 32k context — Claude-class performance">70B malli + 32k konteksti — Claude-luokan suorituskyky</div>
       </div>
+      <div class="tq-item">
+        <div class="vram">48–96 GB</div>
+        <div class="model" data-fi="70B malli täydellä tarkkuudella + 64k+ konteksti, tai useampi erikoismalli (coder/vision/yleinen) ladattuna yhtäaikaa" data-en="70B model at full precision + 64k+ context, or several specialist models (coder/vision/general) loaded at once">70B malli täydellä tarkkuudella + 64k+ konteksti, tai useampi erikoismalli ladattuna yhtäaikaa</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1220,7 +1256,7 @@
   </div>
   <div class="mediagen-grid">
     <div class="mg-card c-image">
-      <div class="mg-icon">🖼️</div>
+      <div class="mg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="1.8"/><path d="M21 15l-5-5-9 9"/></svg></div>
       <h3 data-fi="Kuvat &amp; logot" data-en="Images &amp; logos">Kuvat &amp; logot</h3>
       <p data-fi="&ldquo;Piirrä logo yritykselleni&rdquo; — SD1.5/SDXL-pohjainen generointi suoraan chat-kuplaan."
          data-en="&ldquo;Draw a logo for my company&rdquo; — SD1.5/SDXL-based generation straight into the chat bubble.">
@@ -1229,7 +1265,7 @@
       <span class="mg-tag">image_generate</span>
     </div>
     <div class="mg-card c-video">
-      <div class="mg-icon">🎬</div>
+      <div class="mg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3z"/></svg></div>
       <h3 data-fi="Video" data-en="Video">Video</h3>
       <p data-fi="&ldquo;Tee video punaisesta omenasta&rdquo; — LTX-2-mallilla, muutamassa minuutissa omalla GPU:llasi."
          data-en="&ldquo;Make a video of a red apple&rdquo; — powered by LTX-2, in minutes on your own GPU.">
@@ -1238,7 +1274,7 @@
       <span class="mg-tag">video_generate</span>
     </div>
     <div class="mg-card c-music">
-      <div class="mg-icon">🎵</div>
+      <div class="mg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
       <h3 data-fi="Musiikki" data-en="Music">Musiikki</h3>
       <p data-fi="&ldquo;Säveltäisitkö lofi-biisin sateen äänellä&rdquo; — ACE-Step tuottaa kokonaisen kappaleen sekunneissa."
          data-en="&ldquo;Compose a lofi track with rain sounds&rdquo; — ACE-Step generates a full track in seconds.">
@@ -1607,7 +1643,7 @@ function drawNetwork() {
 
   // subtle radial gradient at center
   const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)*0.7);
-  grad.addColorStop(0, 'rgba(124,58,237,0.04)');
+  grad.addColorStop(0, 'rgba(255,180,84,0.04)');
   grad.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
@@ -1622,7 +1658,7 @@ function drawNetwork() {
         ctx.beginPath();
         ctx.moveTo(nodes[i].x, nodes[i].y);
         ctx.lineTo(nodes[j].x, nodes[j].y);
-        ctx.strokeStyle = `rgba(0,212,255,${0.06 * (1 - dist/160)})`;
+        ctx.strokeStyle = `rgba(94,234,212,${0.06 * (1 - dist/160)})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
@@ -1633,7 +1669,7 @@ function drawNetwork() {
   nodes.forEach(n => {
     ctx.beginPath();
     ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(0,212,255,0.35)';
+    ctx.fillStyle = 'rgba(94,234,212,0.35)';
     ctx.fill();
 
     n.x += n.vx;
